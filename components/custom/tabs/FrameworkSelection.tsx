@@ -17,8 +17,8 @@ export default function FrameworkSelection({ handleOptionChange }: FrameworkSele
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="nextjs">Next.js</SelectItem>
-            <SelectItem value="express">Express.js</SelectItem>
-            <SelectItem value="nestjs">NestJS</SelectItem>
+            <SelectItem value="express" disabled>Express.js (Coming soon)</SelectItem>
+            <SelectItem value="nestjs" disabled>NestJS (Coming soon)</SelectItem>
           </SelectContent>
         </Select>
       </CardContent>
