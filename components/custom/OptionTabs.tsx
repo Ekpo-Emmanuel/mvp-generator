@@ -25,10 +25,10 @@ export default function OptionTabs({ selectedOptions, handleOptionChange, curren
     <Tabs value={currentTab} onValueChange={onTabChange} className="w-full">
       <TabsList className="grid w-full grid-cols-5">
         <TabsTrigger value="framework">Framework</TabsTrigger>
-        <TabsTrigger value="authentication">Authentication</TabsTrigger>
+        <TabsTrigger value="authentication">Auth</TabsTrigger>
         <TabsTrigger value="database">Database</TabsTrigger>
         <TabsTrigger value="integration">Integration</TabsTrigger>
-        <TabsTrigger value="styling">Styling</TabsTrigger>
+        <TabsTrigger value="styling">Styles</TabsTrigger>
       </TabsList>
       <TabsContent value="framework">
         <FrameworkSelection handleOptionChange={handleOptionChange} />

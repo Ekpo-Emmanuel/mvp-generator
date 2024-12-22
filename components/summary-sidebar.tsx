@@ -51,9 +51,16 @@ export default function SummarySidebar({ selectedOptions }: SummarySidebarProps)
   }
 
   return (
-    <div className="w-80 border-l pl-8">
+    <div className="md:w-80 border-t md:border-l md:border-t-0 pt-8 md:pt-0 md:pl-8 w-full mt-4 md:mt-0">
+      <Button 
+        className="w-full md:hidden mb-8" 
+        onClick={handleGenerateProject}
+        disabled={isGenerating}
+      >
+        {isGenerating ? 'Generating...' : 'Generate Project'}
+      </Button>
       <h2 className="text-2xl font-semibold mb-4">Summary</h2>
-      <ScrollArea className="h-[calc(100vh-300px)]">
+      <ScrollArea className="md:h-[calc(100vh-300px)]">
         <div className="space-y-4">
           <div>
             <h3 className="font-medium">Framework</h3>
@@ -78,7 +85,7 @@ export default function SummarySidebar({ selectedOptions }: SummarySidebarProps)
         </div>
       </ScrollArea>
       <Button 
-        className="w-full mt-8" 
+        className="w-full mt-8 hidden md:flex" 
         onClick={handleGenerateProject}
         disabled={isGenerating}
       >
