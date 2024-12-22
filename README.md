@@ -13,7 +13,7 @@ A modern web application that helps **developers** quickly generate production-r
 
 ## Tech Stack
 
-- **Frontend**: React + TypeScript
+- **Frontend**: React 19 + TypeScript
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Build Tool**: Next.js (with App Router)
