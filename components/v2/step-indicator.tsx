@@ -20,17 +20,12 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
             {/* Step Indicator */}
             <div className="flex flex-col items-center cursor-default">
                 {index < currentStep ? (
-                    <CheckCircle2 className="w-8 h-8 text-primary" />
+                    <CheckCircle2 className="w-8 h-8 text-primary" strokeWidth={1} />
                     ) : (
                     <motion.div 
-                        initial={false}
-                        animate={{
-                            scale: index === currentStep ? 1.1 : 1,
-                            transition: { type: 'spring', stiffness: 500, damping: 30 }
-                        }}
                         className={clsx(
                             "w-8 h-8 flex items-center justify-center text-sm font-medium rounded-full text-primary-foreground",
-                            index === currentStep ? 'bg-primary' : 'bg-muted text-black/20 dark:text-white/20'
+                            index === currentStep ? 'bg-primary' : 'opacity-20 border border-primary text-black dark:text-white'
                         )}
                     >
                         {index + 1}

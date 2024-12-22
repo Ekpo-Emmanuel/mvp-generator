@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'MVP Generator',
+  title: 'MVP',
   description: 'Generate full-stack project setups with ease',
 }
 

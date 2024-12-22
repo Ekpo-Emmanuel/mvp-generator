@@ -22,7 +22,6 @@ export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: Step
           "transition-all duration-200 ease-in-out",
           currentStep === 0 ? "opacity-50 cursor-not-allowed" : "hover:text-accent-foreground"
         )}
-        size="lg"
       >
         <ChevronLeft className="mr-2 h-4 w-4" /> Back
       </Button>
@@ -33,7 +32,6 @@ export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: Step
           "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 ease-in-out",
           currentStep === totalSteps - 1 ? "opacity-50 cursor-not-allowed" : ""
         )}
-        size="lg"
       >
         {currentStep === totalSteps - 2 ? (
           <>
