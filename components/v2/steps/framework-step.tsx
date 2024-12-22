@@ -43,7 +43,7 @@ export default function FrameworkStep({ selectedFramework, onSelect }: Framework
               className="block ml-8 cursor-pointer"
             >
               <span className="font-normal">{framework.label}</span>
-              <span className="block text-sm font-extralight mt-1">
+              <span className="block text-sm font-extralight mt-1 tracking-tight">
                 {framework.description}
               </span>
               {framework.disabled && (

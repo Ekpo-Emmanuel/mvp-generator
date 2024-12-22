@@ -42,7 +42,7 @@ export default function DatabaseStep({ selectedDatabase, onSelect }: DatabaseSte
               className="block ml-8 cursor-pointer"
             >
               <span className="font-normal">{database.label}</span>
-              <span className="block text-sm font-extralight mt-1">
+              <span className="block text-sm font-extralight mt-1 tracking-tight">
                 {database.description}
               </span>
             </Label>

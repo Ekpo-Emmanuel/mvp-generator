@@ -141,14 +141,14 @@ export default function SummaryStep({ selectedOptions }: SummaryStepProps) {
           <h3 className="text-md mb-1 flex items-center">
             Framework
           </h3>
-          <p className="text-sm font-extralight">{selectedOptions.framework || 'Not selected'}</p>
+          <p className="text-sm font-extralight tracking-tight">{selectedOptions.framework || 'Not selected'}</p>
         </motion.div>
         <motion.div variants={itemVariants} className="rounded-lg p-4 border">
           <h3 className="text-md mb-1 flex items-center">
             
             Authentication
           </h3>
-          <p className="text-sm font-extralight">
+          <p className="text-sm font-extralight tracking-tight">
             {selectedOptions.authentication.length > 0 ? selectedOptions.authentication.join(', ') : 'Not selected'}
           </p>
         </motion.div>
@@ -157,13 +157,13 @@ export default function SummaryStep({ selectedOptions }: SummaryStepProps) {
             
             Database
           </h3>
-          <p className="text-sm font-extralight">Coming Soon</p>
+          <p className="text-sm font-extralight tracking-tight">Coming Soon</p>
         </motion.div>
         <motion.div variants={itemVariants} className="rounded-lg p-4 border">
           <h3 className="text-md mb-1 flex items-center">
             Styling
           </h3>
-          <p className="text-sm font-extralight">Coming Soon</p>
+          <p className="text-sm font-extralight tracking-tight">Coming Soon</p>
         </motion.div>
       </div>
       <motion.div variants={itemVariants}>

@@ -52,7 +52,7 @@ export default function AuthenticationStep({ selectedAuth, onSelect }: Authentic
               className="block ml-8 cursor-pointer"
             >
               <span className="font-normal">{auth.label}</span>
-              <span className="block text-sm font-extralight mt-1">
+              <span className="block text-sm font-extralight mt-1 tracking-tight">
                 {auth.description}
               </span>
               {auth.disabled && (

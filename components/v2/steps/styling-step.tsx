@@ -57,7 +57,7 @@ export default function StylingStep({ selectedStyling, onSelect }: StylingStepPr
               className="block ml-8 cursor-pointer"
             >
               <span className="font-normal">{styling.label}</span>
-              <span className="block text-sm font-extralight mt-1">
+              <span className="block text-sm font-extralight mt-1 tracking-tight">
                 {styling.description}
               </span>
             </Label>
