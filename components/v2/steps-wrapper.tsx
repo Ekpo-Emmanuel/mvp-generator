@@ -58,11 +58,11 @@ export default function StepsWrapper() {
   }, [currentStep, selectedOptions, handleOptionChange])
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 pb-16">
       <div className="max-w-sm">
         <StepIndicator currentStep={currentStep} totalSteps={steps.length} />
       </div>
-      <div className="bg-card text-card-foreground">
+      <div className="text-card-foreground">
         <div className="p-0">
           <div>
             <AnimatePresence mode="wait">
@@ -77,7 +77,7 @@ export default function StepsWrapper() {
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="absolute left-0 bottom-0 w-full bg-muted">
+          <div className="fixed left-0 bottom-0 w-full bg-mute">
             <StepNavigation
               currentStep={currentStep}
               totalSteps={steps.length}
