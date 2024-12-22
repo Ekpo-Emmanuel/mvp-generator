@@ -12,12 +12,12 @@ export default function IntegrationSelection({ handleOptionChange }: Integration
   return (
     <Card>
       <CardContent className="pt-6">
-        <Label>Select a Styling Option</Label>
-        <RadioGroup onValueChange={(value) => handleOptionChange('styling', value)}>
+        <Label>Select an Integation Option (Coming soon)</Label>
+        <RadioGroup onValueChange={(value) => handleOptionChange('styling', value)} className="grid gap-4 mt-4">
           {options.map((option) => (
             <div key={option} className="flex items-center space-x-2">
-              <RadioGroupItem value={option.toLowerCase().replace(' ', '-')} id={option.toLowerCase().replace(' ', '-')} />
-              <Label htmlFor={option.toLowerCase().replace(' ', '-')}>{option}</Label>
+              <RadioGroupItem value={option.toLowerCase().replace(' ', '-')} id={option.toLowerCase().replace(' ', '-')} disabled/>
+              <Label htmlFor={option.toLowerCase().replace(' ', '-')}  className="opacity-50">{option}</Label>
             </div>
           ))}
         </RadioGroup>
