@@ -10,7 +10,11 @@ interface AuthenticationSelectionProps {
 }
 
 export default function AuthenticationSelection({ selectedOptions, handleOptionChange }: AuthenticationSelectionProps) {
-  const options = ["Clerk", "Auth0", "Firebase"];
+  const options = [
+    { name: 'Clerk', value: 'clerk' },
+    { name: 'Auth0', value: 'auth0', disabled: true },
+    { name: 'Firebase', value: 'firebase', disabled: true }
+  ]
 
   return (
     <Card>
@@ -18,16 +22,20 @@ export default function AuthenticationSelection({ selectedOptions, handleOptionC
         <Label>Select Authentication Options</Label>
         <div className="grid gap-4 mt-4">
           {options.map((option) => (
-            <div key={option} className="flex items-center space-x-2">
-              <Checkbox
-                id={option.toLowerCase()}
-                checked={selectedOptions.authentication.includes(option.toLowerCase())}
-                onCheckedChange={() => handleOptionChange('authentication', option.toLowerCase())}
-              />
-              <label htmlFor={option.toLowerCase()} className="text-sm font-medium">
-                {option}
-              </label>
-            </div>
+            <div key={option.value} className="flex items-center space-x-2">
+            <Checkbox
+              id={option.value}
+              checked={selectedOptions.authentication.includes(option.value)}
+              onCheckedChange={() => handleOptionChange('authentication', option.value)}
+              disabled={option.disabled}
+            />
+            <label
+              htmlFor={option.value}
+              className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${option.disabled ? 'opacity-50' : ''}`}
+            >
+              {option.name} {option.disabled && '(Coming Soon)'}
+            </label>
+          </div>
           ))}
         </div>
       </CardContent>
