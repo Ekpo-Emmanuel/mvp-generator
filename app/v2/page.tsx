@@ -11,7 +11,7 @@ export default function Home2() {
                 <h1 className="text-xl font-semibold tracking-tighter">MVP Setup</h1>
                 <ModeToggle />
             </div>
-            <StepsWrapper title="MVP Setup Steps" />
+            <StepsWrapper />
         </div>
     </div>
   )
