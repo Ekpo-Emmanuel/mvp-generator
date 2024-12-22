@@ -22,7 +22,7 @@ A modern web application that helps **developers** quickly generate production-r
 
 1. **Clone the repository** (if you're running the project locally):
    ```bash
-   git clone https://github.com/yourusername/nextjs-project-setup-generator.git
+   git clone https://github.com/Ekpo-Emmanuel/mvp-generator.git
    ```
 
 2. **Install dependencies**:
