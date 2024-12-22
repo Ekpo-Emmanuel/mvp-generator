@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { motion } from 'framer-motion'
-import { Check, AlertTriangle, LoaderCircle } from 'lucide-react'
+import { LoaderCircle } from 'lucide-react'
 import confetti from "canvas-confetti";
 import axios from "axios"
 

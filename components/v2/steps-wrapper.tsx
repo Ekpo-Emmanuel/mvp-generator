@@ -12,7 +12,7 @@ import { StepNavigation } from './step-navigation'
 
 const steps = ['Framework', 'Authentication', 'Database', 'Styling', 'Summary']
 
-export default function StepsWrapper({ title }: { title: string }) {
+export default function StepsWrapper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedOptions, setSelectedOptions] = useState({
     framework: '',

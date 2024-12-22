@@ -1,7 +1,6 @@
 import React from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion'
-import { Button } from '../ui/button';
 import clsx from "clsx"
 
 
