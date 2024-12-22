@@ -44,9 +44,9 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 flex">
-      <div className="flex-grow mr-8">
-        <h1 className="text-4xl font-bold mb-8">Generate Your Project Setup</h1>
+    <div className="container mx-auto px-4 py-8 md:flex">
+      <div className="flex-grow md:mr-8">
+        <h1 className="text-4xl font-bold mb-8">MVP Setup</h1>
         <OptionTabs
           selectedOptions={selectedOptions}
           handleOptionChange={handleOptionChange}
