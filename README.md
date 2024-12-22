@@ -1,5 +1,5 @@
 
-# Next.js Project Setup Generator
+#  MVP Generator
 
 A modern web application that helps **developers** quickly generate production-ready MVP (Minimum Viable Product) starter kits based on their selected technology stack and requirements.
 
