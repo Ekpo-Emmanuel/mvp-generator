@@ -1,13 +1,13 @@
 'use client'
 
 import StepsWrapper from '@/components/v2/steps-wrapper'
-import { ModeToggle } from '@/components/mode-toggle'
+import ModeToggle from '@/components/mode-toggle'
 
 export default function Home2() {
   return (
     <div className="bg-background text-foreground">
       <div className="max-w-4xl mx-auto space-y-10 h-full">
-        <div className="flex items-center justify-between border-b px-4 py-2">
+        <div className="flex items-center justify-between border-b px-4 py-2 lg:px-0">
           <div className="flex items-end gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ export default function Home2() {
           </div>
           <ModeToggle />
         </div>
-        <div className="p-4">
+        <div className="p-4 lg:px-0">
           <StepsWrapper />
         </div>
       </div>
