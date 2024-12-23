@@ -16,7 +16,7 @@ export default function StepsWrapper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedOptions, setSelectedOptions] = useState({
     framework: '',
-    authentication: [],
+    authentication: '',
     database: '',
     styling: '',
   })
@@ -77,7 +77,7 @@ export default function StepsWrapper() {
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="fixed left-0 bottom-0 w-full bg-mute">
+          <div className="fixed left-0 bottom-0 w-full bg-background">
             <StepNavigation
               currentStep={currentStep}
               totalSteps={steps.length}
