@@ -11,7 +11,7 @@ import axios from "axios"
 interface SummaryStepProps {
   selectedOptions: {
     framework: string
-    authentication: string[]
+    authentication: string
     database: string
     styling: string
   }
@@ -149,7 +149,7 @@ export default function SummaryStep({ selectedOptions }: SummaryStepProps) {
             Authentication
           </h3>
           <p className="text-sm font-extralight tracking-tight">
-            {selectedOptions.authentication.length > 0 ? selectedOptions.authentication.join(', ') : 'Not selected'}
+            {selectedOptions.authentication.length > 0 ? selectedOptions.authentication : 'Not selected'}
           </p>
         </motion.div>
         <motion.div variants={itemVariants} className="rounded-lg p-4 border">
