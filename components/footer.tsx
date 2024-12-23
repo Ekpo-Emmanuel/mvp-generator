@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ModeToggle } from "./mode-toggle";
+import ModeToggle from "./mode-toggle";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
