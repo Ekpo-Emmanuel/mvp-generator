@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Check } from 'lucide-react';
 import { motion } from 'framer-motion'
 import clsx from "clsx"
 
@@ -20,12 +20,18 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
             {/* Step Indicator */}
             <div className="flex flex-col items-center cursor-default">
                 {index < currentStep ? (
-                    <CheckCircle2 className="w-8 h-8 text-primary" strokeWidth={1} />
+                    <motion.div 
+                        className={clsx(
+                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full  border border-primary bg-background dark:bg-primary",
+                        )}
+                    >
+                        <Check className="w-4 h-4 dark:text-background" strokeWidth={2} />
+                    </motion.div>
                     ) : (
                     <motion.div 
                         className={clsx(
-                            "w-8 h-8 flex items-center justify-center text-sm font-medium rounded-full text-primary-foreground",
-                            index === currentStep ? 'bg-primary' : 'opacity-20 border border-primary text-black dark:text-white'
+                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full text-primary-foreground",
+                            index === currentStep ? 'bg-primary' : 'border bg-background '
                         )}
                     >
                         {index + 1}
@@ -35,7 +41,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
 
             {/* Connector Line */}
             {index < totalSteps - 1 && (
-                <div className="w-full h-[2px] mx-2">
+                <div className="w-full h-[2px] mx-2 z-50">
                     <motion.div
                         className={`h-full ${index < currentStep ? 'bg-primary' : 'bg-gray-200'} rounded-full`}
                         initial={{ width: '0%' }}
