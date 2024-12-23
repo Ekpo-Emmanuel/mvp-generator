@@ -1,7 +1,3 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { cn } from '@/lib/utils'
 
 interface DatabaseStepProps {
@@ -10,58 +6,66 @@ interface DatabaseStepProps {
 }
 
 const databases = [
-  { value: 'supabase', label: 'Supabase', description: 'Open source Firebase alternative' },
-  { value: 'xata', label: 'Xata', description: 'Serverless database platform' },
-  { value: 'mongodb', label: 'MongoDB', description: 'Document-oriented NoSQL database' }
+  { 
+      value: 'supabase', 
+      label: 'Supabase', 
+      icon: 'M13.297 23.016c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317ZM9.457.434c.598-.754 1.809-.34 1.82.617l.094 14.035h-9.32c-1.707 0-2.66-1.973-1.598-3.313Zm3.84 22.582c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0',
+      disabled: true
+  },
+  { 
+      value: 'firebase', 
+      label: 'Firebase', 
+      icon: 'M6.148 22.934a9.324 9.324 0 0 0 7.398-.187 13.2 13.2 0 0 1-4.128-2.595 7.1 7.1 0 0 1-3.27 2.782m3.27-2.778a13.18 13.18 0 0 1-4.234-10.152q.008-.199.02-.39a7.08 7.08 0 0 0-3.68.04 9.336 9.336 0 0 0 4.624 13.28 7.1 7.1 0 0 0 3.27-2.778m0 0A7.045 7.045 0 0 0 5.203 9.613c-.008.13-.012.258-.02.39a13.18 13.18 0 0 0 4.235 10.153M10.128.16a13.2 13.2 0 0 0-4.042 5.48 13.1 13.1 0 0 0-.883 3.973 7.05 7.05 0 0 1 5.274 7.067 7.04 7.04 0 0 1-1.063 3.476 13.2 13.2 0 0 0 4.133 2.594 9.34 9.34 0 0 0 5.418-8.152c.082-2.36-.824-4.461-2.106-6.235C15.504 6.484 10.13.16 10.13.16m0 0',
+      disabled: true 
+  },
+  { 
+      value: 'xata', 
+      label: 'Xata', 
+      icon: 'M.5 6.602a8.58 8.58 0 0 0 2.524 6.066l5.723 5.703c.199.198.521.198.707-.011a8.577 8.577 0 0 0-.362-11.769l-5.229-5.21C3.392.91 2.62.908 2.221 1.439A8.58 8.58 0 0 0 .5 6.602 M20.976 12.634a8.58 8.58 0 0 0 .803-11.229c-.4-.532-1.17-.528-1.642-.059l-5.229 5.211a8.58 8.58 0 0 0-.362 11.769c.186.21.508.209.707.011z M19.1 22.914c.471.47 1.24.475 1.66-.04 1.165-1.428 1.94-3.076 2.193-4.696.277-1.77-.089-3.378-1.02-4.541-.175-.219-.498-.218-.697-.02l-5.364 5.345a.507.507 0 0 0-.001.718z M3.24 22.909c.42.515 1.19.511 1.66.04l3.23-3.233a.507.507 0 0 0-.002-.718l-5.364-5.346c-.198-.197-.522-.199-.697.02-.93 1.163-1.297 2.771-1.02 4.541.253 1.62 1.028 3.268 2.193 4.696',
+      disabled: true 
+  },
+  { 
+      value: 'mongodb', 
+      label: 'MongoDB', 
+      icon: 'm11.043 3.121.523.977c.118.18.243.34.391.488.438.43.848.894 1.223 1.379.879 1.156 1.472 2.441 1.898 3.832.254.851.395 1.723.402 2.601.043 2.633-.859 4.895-2.68 6.774-.292.297-.613.57-.952.816-.184 0-.266-.136-.34-.265a2.1 2.1 0 0 1-.266-.766 3.5 3.5 0 0 1-.086-.965v-.148c-.015-.032-.176-14.649-.113-14.723m0 0 M11.043 3.09c-.02-.043-.04-.012-.063.008.012.215-.062.402-.18.586-.128.18-.296.316-.468.464-.941.82-1.684 1.805-2.281 2.91-.79 1.489-1.2 3.079-1.317 4.755-.05.605.192 2.742.383 3.355.52 1.637 1.457 3.004 2.664 4.195.297.285.617.551.946.805.093 0 .105-.086.128-.148.04-.133.075-.274.094-.415l.215-1.59Zm0 0 M11.566 20.637c.02-.246.137-.45.266-.649a.68.68 0 0 1-.297-.277 2 2 0 0 1-.16-.348c-.148-.449-.18-.914-.223-1.37v-.278c-.054.043-.062.406-.062.457-.031.484-.098.96-.192 1.433-.03.192-.054.383-.171.551 0 .024 0 .043.011.074.192.567.242 1.137.274 1.723v.211c0 .258-.008.203.203.29.086.03.18.042.265.105.063 0 .075-.055.075-.098l-.032-.348v-.976c-.011-.172.02-.34.043-.5m0 0',
+      disabled: true 
+  },
 ]
 
 export default function DatabaseStep({ selectedDatabase, onSelect }: DatabaseStepProps) {
-  const [hoveredDatabase, setHoveredDatabase] = useState<string | null>(null)
-
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-medium mb-4">Select a Database (Coming Soon)</h2>
-      <RadioGroup value={selectedDatabase} onValueChange={onSelect} className="space-y-2">
+      <div className="grid grid-cols-2 gap-4">
         {databases.map((database) => (
           <div
             key={database.value}
+            onClick={() => !database.disabled && onSelect(database.value)}
             className={cn(
-              "relative p-4 rounded-lg transition-all duration-200 ease-in-out opacity-50 cursor-not-allowed hover:bg-muted"
+              "flex w-full flex-col items-center rounded-xl border bg-card p-6 text-card-foreground transition-colors sm:p-10",
+              database.disabled
+                ? "cursor-not-allowed opacity-40" 
+                : "hover:bg-muted/50 cursor-pointer", 
+                selectedDatabase === database.value && "bg-muted/50" 
             )}
-            onMouseEnter={() => setHoveredDatabase(database.value)}
-            onMouseLeave={() => setHoveredDatabase(null)}
           >
-            <RadioGroupItem
-              value={database.value}
-              id={database.value}
-              disabled
-              className="absolute left-4 top-1/2 transform -translate-y-1/2"
-            />
-            <Label
-              htmlFor={database.value}
-              className="block ml-8 cursor-pointer"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              className="w-10 h-10"
+              viewBox="0 0 24 24"
             >
-              <span className="font-normal">{database.label}</span>
-              <span className="block text-sm font-extralight mt-1 tracking-tight">
-                {database.description}
-              </span>
-            </Label>
-            {hoveredDatabase === database.value && (
-              <motion.div
-                className="absolute inset-0 border rounded-lg pointer-events-none"
-                layoutId="outline"
-                initial={false}
-                animate={{ opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 30
-                }}
-              />
-            )}
+              <path d={database.icon}></path>
+            </svg>
+            <p className="font-medium mt-2">{database.label}</p>
           </div>
         ))}
-      </RadioGroup>
+        {selectedDatabase && (
+          <div className="col-span-2 mt-4">
+            <p className="text-sm">Selected Database: <strong>{selectedDatabase}</strong></p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
