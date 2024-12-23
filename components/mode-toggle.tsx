@@ -1,30 +1,62 @@
-'use client'
+"use client"
 
-import * as React from "react"
-import { Moon, Sun } from 'lucide-react'
-import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
+import { Monitor, Moon, Sun } from 'lucide-react'
 
-export function ModeToggle() {
-  const { theme, setTheme } = useTheme()
+type Theme = "dark" | "light" | "system"
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
+export default function ModeToggle() {
+  const [theme, setTheme] = useState<Theme>("system")
+  
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as Theme
+    if (savedTheme) {
+      setTheme(savedTheme)
+      updateTheme(savedTheme)
+    }
+  }, [])
+
+  const updateTheme = (newTheme: Theme) => {
+    document.documentElement.classList.remove("light", "dark")
+
+    if (newTheme === "system") {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      document.documentElement.classList.add(systemTheme)
+    } else {
+      document.documentElement.classList.add(newTheme)
+    }
+
+    localStorage.setItem("theme", newTheme)
+  }
+
+  const handleThemeChange = (newTheme: Theme) => {
+    setTheme(newTheme)
+    updateTheme(newTheme)
   }
 
   return (
-    <Button 
-      variant="outline" 
-      size="icon" 
-      onClick={toggleTheme} 
-      aria-label="Toggle theme"
-      className="border-none rounded-full"
-    >
-      {theme === "dark" ? (
-        <Sun className="h-[1.2rem] w-[1.2rem] transition-transform rotate-0 scale-100" />
-      ) : (
-        <Moon className="h-[1.2rem] w-[1.2rem] transition-transform rotate-90 scale-100" />
-      )}
-    </Button>
+    <div className="relative flex p-1 bg-muted rounded-full">  
+    {[
+      { icon: Moon, value: "dark" },
+      { icon: Sun, value: "light" },
+      // { icon: Monitor, value: "system" }
+    ].map(({ icon: Icon, value }) => (
+      <button
+        key={value}
+        onClick={() => handleThemeChange(value as Theme)}
+        className={`relative z-10 flex items-center justify-center w-6 h-6 rounded-full transition-colors duration-200 ${
+          theme === value 
+            ? "bg-muted" 
+            : "text-primary/40"
+        }`}
+      >
+        <Icon className="w-4 h-4" />
+        <span className="sr-only">
+          {value.charAt(0).toUpperCase() + value.slice(1)} mode
+        </span>
+      </button>
+    ))}
+  </div>
   )
 }
+
