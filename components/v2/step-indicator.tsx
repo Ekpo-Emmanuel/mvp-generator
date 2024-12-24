@@ -22,7 +22,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                 {index < currentStep ? (
                     <motion.div 
                         className={clsx(
-                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full  border border-primary bg-background dark:bg-primary",
+                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full  border-2 border-primary bg-background dark:bg-primary",
                         )}
                     >
                         <Check className="w-4 h-4 dark:text-background" strokeWidth={2} />
@@ -30,8 +30,8 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                     ) : (
                     <motion.div 
                         className={clsx(
-                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full text-primary-foreground",
-                            index === currentStep ? 'bg-primary' : 'border bg-background '
+                            "w-8 h-8 flex items-center justify-center text-sm font-medium z-10 rounded-full",
+                            index === currentStep ? 'border-2 border-primary text-primary' : 'border bg-background text-primary-foreground'
                         )}
                     >
                         {index + 1}
@@ -41,7 +41,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
 
             {/* Connector Line */}
             {index < totalSteps - 1 && (
-                <div className="w-full h-[2px] mx-2 z-50">
+                <div className="w-full h-[2px] ">
                     <motion.div
                         className={`h-full ${index < currentStep ? 'bg-primary' : 'bg-gray-200'} rounded-full`}
                         initial={{ width: '0%' }}
