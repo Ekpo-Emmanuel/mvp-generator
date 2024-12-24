@@ -13,7 +13,7 @@ interface StepNavigationProps {
 
 export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: StepNavigationProps) {
   return (
-    <div className="flex justify-between px-4 lg:px-0 py-4 max-w-4xl mx-auto">
+    <div className="flex justify-between px-4 lg:px-0 pb-4 pt-2 max-w-4xl mx-auto">
       <Button
         variant="outline"
         onClick={onBack}
@@ -30,18 +30,10 @@ export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: Step
         disabled={currentStep === totalSteps - 1}
         className={cn(
           "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 ease-in-out",
-          currentStep === totalSteps - 1 ? "opacity-50 cursor-not-allowed" : ""
+          currentStep === totalSteps - 1 ? "opacity-50 cursor-not-allowed hidden" : ""
         )}
       >
-        {currentStep === totalSteps - 2 ? (
-          <>
-            Finish <Check className="ml-2 h-4 w-4" strokeWidth={2} />
-          </>
-        ) : (
-          <>
-            Next <ChevronRight className="ml-2 h-4 w-4" strokeWidth={2} />
-          </>
-        )}
+        Next <ChevronRight className="ml-2 h-4 w-4" strokeWidth={2} />
       </Button>
     </div>
   );
