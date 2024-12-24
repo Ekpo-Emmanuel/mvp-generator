@@ -35,18 +35,28 @@ const authOptions = [
       </svg>
     ),
     disabled: false,
+    description: 'Complete user management',
   },
   {
     value: "auth0",
     label: "Auth0",
-    icon: "m8.286 10.578.512-8.657a.306.306 0 0 1 .247-.282L17.377.006a.306.306 0 0 1 .353.385l-1.558 5.403a.306.306 0 0 0 .352.385l2.388-.46a.306.306 0 0 1 .332.438l-6.79 13.55-.123.19a.294.294 0 0 1-.252.14c-.177 0-.35-.152-.305-.369l1.095-5.301a.306.306 0 0 0-.388-.355l-1.433.435a.306.306 0 0 1-.389-.354l.69-3.375a.306.306 0 0 0-.37-.36l-2.32.536a.306.306 0 0 1-.374-.316zm14.976-7.926L17.284 3.74l-.544 1.887 2.077-.4a.8.8 0 0 1 .84.369.8.8 0 0 1 .034.783L12.9 19.93l-.013.025-.015.023-.122.19a.801.801 0 0 1-.672.37.826.826 0 0 1-.634-.302.8.8 0 0 1-.16-.67l1.029-4.981-1.12.34a.81.81 0 0 1-.86-.262.802.802 0 0 1-.165-.67l.63-3.08-2.027.468a.808.808 0 0 1-.768-.233.81.81 0 0 1-.217-.6l.389-6.57-7.44-1.33a.612.612 0 0 0-.64.906L11.58 23.691a.612.612 0 0 0 1.066-.004l11.26-20.135a.612.612 0 0 0-.644-.9z",
+    icon: "M21.98 7.45 19.621 0H4.348L2.02 7.45c-1.352 4.312.03 9.202 3.816 12.015L12.008 24l6.156-4.55c3.754-2.813 5.184-7.688 3.816-12.016l-6.16 4.578 2.34 7.453-6.156-4.598-6.156 4.578 2.355-7.433-6.187-4.547 7.632-.047L12.008 0l2.355 7.402Zm0 0",
     disabled: true,
+    description: 'Enterprise-ready auth platform',
   },
   {
     value: "firebase",
     label: "Firebase",
-    icon: "M21.511 18.508c.216 2.773.216 4.073.216 5.492H15.31c0-.309.006-.592.011-.878.018-.892.036-1.821-.109-3.698-.19-2.747-1.374-3.358-3.55-3.358H1.574v-5h10.396c2.748 0 4.122-.835 4.122-3.049 0-1.946-1.374-3.125-4.122-3.125H1.573V0h11.541c6.221 0 9.313 2.938 9.313 7.632 0 3.511-2.176 5.8-5.114 6.182 2.48.497 3.93 1.909 4.198 4.694ZM1.573 24v-3.727h6.784c1.133 0 1.379.84 1.379 1.342V24Z",
+    icon: "M18.874 9.935 16.6 5.584a.677.677 0 0 0-1.198-.004l-.002.004-9.985 17.894zm7.978 15.267L24.04 7.707a.676.676 0 0 0-1.149-.369L5.147 25.203l9.817 5.532c.286.163.628.26.992.26s.707-.096 1.002-.265l-.01.005zM5.865 20.589 8.82 1.581a.679.679 0 0 1 1.267-.22l.002.004 3.178 5.962z",
     disabled: true,
+    description: 'Authentication by Google',
+  },
+  { 
+    value: 'supabase', 
+    label: 'Supabase', 
+    icon: 'M13.297 23.016c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317ZM9.457.434c.598-.754 1.809-.34 1.82.617l.094 14.035h-9.32c-1.707 0-2.66-1.973-1.598-3.313Zm3.84 22.582c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0',
+    disabled: true,
+    description: 'Open source auth provider',
   },
 ];
 
@@ -56,20 +66,17 @@ export default function AuthenticationStep({
 }: AuthenticationStepProps) {
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-medium mb-4">
-        Select Authentication Options
-      </h2>
       <div className="grid grid-cols-2 gap-4">
         {authOptions.map((auth) => (
           <div
             key={auth.value}
             onClick={() => !auth.disabled && onSelect(auth.value)}
             className={cn(
-              "flex w-full flex-col items-center rounded-xl border bg-card p-6 text-card-foreground transition-colors sm:p-10",
+              "flex w-full flex-col rounded-xl border bg-card p-6 text-card-foreground transition-colors sm:p-10",
               auth.disabled
                 ? "cursor-not-allowed opacity-50"
                 : "hover:bg-muted/50 cursor-pointer",
-              selectedAuth === auth.value && "bg-muted/50"
+              selectedAuth === auth.value && "bg-muted hover:bg-muted"
             )}
           >
             {auth.customIcon ? (
@@ -85,14 +92,15 @@ export default function AuthenticationStep({
               </svg>
             )}
             <p className="font-medium mt-2">{auth.label}</p>
+            <p className="text-sm text-muted-foreground">{auth.description}</p>
           </div>
         ))}
       </div>
-      {selectedAuth && (
+      {/* {selectedAuth && (
           <div className="col-span-2 mt-4">
             <p className="text-sm">Selected Auth: <strong>{selectedAuth}</strong></p>
           </div>
-        )}
+        )} */}
     </div>
   );
 }
