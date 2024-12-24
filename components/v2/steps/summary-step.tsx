@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { LoaderCircle } from 'lucide-react'
 import confetti from "canvas-confetti";
 import axios from "axios"
+import { Card } from "@/components/ui/card";
 
 
 interface SummaryStepProps {
@@ -135,42 +136,41 @@ export default function SummaryStep({ selectedOptions }: SummaryStepProps) {
       initial="hidden"
       animate="visible"
     >
-      <h2 className="text-xl font-medium mb-4">Project Summary</h2>
-      <div className="grid gap-4 grid-cols-2">
-        <motion.div variants={itemVariants} className="rounded-lg p-4 border">
-          <h3 className="text-md mb-1 flex items-center">
-            Framework
-          </h3>
-          <p className="text-sm font-extralight tracking-tight">{selectedOptions.framework || 'Not selected'}</p>
-        </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg p-4 border">
-          <h3 className="text-md mb-1 flex items-center">
-            
-            Authentication
-          </h3>
-          <p className="text-sm font-extralight tracking-tight">
-            {selectedOptions.authentication.length > 0 ? selectedOptions.authentication : 'Not selected'}
-          </p>
-        </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg p-4 border">
-          <h3 className="text-md mb-1 flex items-center">
-            
-            Database
-          </h3>
-          <p className="text-sm font-extralight tracking-tight">Coming Soon</p>
-        </motion.div>
-        <motion.div variants={itemVariants} className="rounded-lg p-4 border">
-          <h3 className="text-md mb-1 flex items-center">
-            Styling
-          </h3>
-          <p className="text-sm font-extralight tracking-tight">Coming Soon</p>
-        </motion.div>
+      <div className="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg">
+        <p className="text-yellow-800 dark:text-yellow-200 text-sm">
+          Some features are still in development. The generated project will include basic templates and placeholders.
+        </p>
       </div>
+
+      <Card className="p-4 md:p-6">
+        <h3 className="text-lg font-semibold mb-4">Your Selections</h3>
+        <dl className="space-y-2">
+          <div className="flex justify-between group py-2 rounded-lg transition-colors">
+            <dt className="text-muted-foreground text-sm font-light cursor-default">Framework:</dt>
+            <dd className="font-medium text-sm">{selectedOptions.framework || 'Not selected'}</dd>
+          </div>
+          <div className="flex justify-between group py-2 rounded-lg transition-colors">
+            <dt className="text-muted-foreground text-sm font-light cursor-default">Authentication:</dt>
+            <dd className="font-medium text-sm">{selectedOptions.authentication || 'Not selected'}</dd>
+          </div>
+          <div className="flex justify-between group py-2 rounded-lg transition-colors">
+            <dt className="text-muted-foreground text-sm font-light cursor-default">Database:</dt>
+            {/* <dd className="font-medium">{selectedOptions.database || 'Not selected'}</dd> */}
+            <dd className="flex items-center justify-center gap-2 font-medium rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-2 text-xs">Coming soon</dd>
+          </div>
+          <div className="flex justify-between group py-2 rounded-lg transition-colors">
+            <dt className="text-muted-foreground text-sm font-light cursor-default">Styling:</dt>
+            <dd className="font-medium">{selectedOptions.styling || 'Not selected'}</dd>
+            {/* <dd className="font-medium text-sm">Coming soon</dd> */}
+          </div>
+        </dl>
+      </Card>
+
       <motion.div variants={itemVariants}>
         <Button 
           onClick={handleGenerateProject}
           disabled={isGenerating}
-          className="w-full mt-6 transition-colors duration-200"
+          className="w-full transition-colors duration-200"
           size="lg"
         >
           {isGenerating 
@@ -183,6 +183,15 @@ export default function SummaryStep({ selectedOptions }: SummaryStepProps) {
           }
         </Button>
       </motion.div>
+
+      <div className="text-sm text-muted-foreground space-y-2">
+        <h4 className="font-medium">Getting Started:</h4>
+        <ol className="list-decimal list-inside space-y-1">
+          <li>Download and extract the generated zip file</li>
+          <li>Install dependencies using <code className="bg-muted px-1 rounded text-primary">npm install</code></li>
+          <li>Start the development server with <code className="bg-muted px-1 rounded text-primary">npm run dev</code></li>
+        </ol>
+      </div>
     </motion.div>
   )
 }
