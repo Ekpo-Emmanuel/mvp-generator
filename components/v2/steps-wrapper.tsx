@@ -10,7 +10,7 @@ import SummaryStep from '@/components/v2/steps/summary-step'
 import { StepIndicator } from '@/components/v2/step-indicator'
 import { StepNavigation } from './step-navigation'
 
-const steps = ['Framework', 'Authentication', 'Database', 'Styling', 'Summary']
+const steps = ['Framework', 'Authentication', 'Database(Coming soon)', 'Styling', 'Summary']
 
 export default function StepsWrapper() {
   const [currentStep, setCurrentStep] = useState(0)
@@ -63,7 +63,8 @@ export default function StepsWrapper() {
         <StepIndicator currentStep={currentStep} totalSteps={steps.length} />
       </div>
       <div className="text-card-foreground">
-        <div className="p-0">
+        <div className="p-0 space-y-4">
+          <h2 className="text-2xl font-bold">{steps[currentStep]}</h2>
           <div>
             <AnimatePresence mode="wait">
               <motion.div
@@ -77,7 +78,7 @@ export default function StepsWrapper() {
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="fixed left-0 bottom-0 w-full bg-background">
+          <div className="fixed left-0 z-50 bottom-0 w-full bg-background">
             <StepNavigation
               currentStep={currentStep}
               totalSteps={steps.length}
