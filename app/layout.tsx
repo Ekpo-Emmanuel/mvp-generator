@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'MVP',
-  description: 'Generate full-stack project setups with ease',
+  description: 'Generate full-stack project setups in seconds',
 }
 
 export default function RootLayout({
