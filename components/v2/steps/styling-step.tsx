@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import TailwindSvg from '../svgs/tailwind'
 
 interface StylingStepProps {
   selectedStyling: string
@@ -11,7 +12,7 @@ const stylingOptions = [
     label: 'Tailwind CSS', 
     description: 'A utility-first CSS styling',
     disabled: false,
-    icon: "M12 6.035q-4-.001-5 3.977 1.501-1.986 3.5-1.492c.762.19 1.305.738 1.906 1.347C13.386 10.855 14.523 12 17 12q4 .001 5-3.977-1.498 1.99-3.5 1.493c-.762-.192-1.305-.739-1.906-1.344-.98-.992-2.114-2.137-4.594-2.137M7 12c-2.668 0-4.332 1.324-5 3.977q1.501-1.992 3.5-1.493c.762.192 1.305.739 1.906 1.344.98.992 2.117 2.137 4.594 2.137q4.003.001 5-3.977c-1 1.325-2.164 1.82-3.5 1.492-.762-.19-1.305-.738-1.906-1.347C10.614 13.145 9.477 12 7 12m0 0",
+    customIcon: <TailwindSvg fill="currentColor" className="scale-[1.2] translate-y-2"/>,
   },
   { 
     value: 'bootstrap', 
@@ -32,19 +33,24 @@ const stylingOptions = [
 export default function StylingStep({ selectedStyling, onSelect }: StylingStepProps) {
   return (
     <div className="space-y-4">
-       <div className="grid grid-cols-2 gap-4">
+       <div className="grid grid-cols-2 gap-4 md:gap-6">
         {stylingOptions.map((styling) => (
           <div
             key={styling.value}
             onClick={() => !styling.disabled && onSelect(styling.value)}
             className={cn(
-              "flex w-full flex-col rounded-xl border bg-card p-6 text-card-foreground transition-colors sm:p-10",
+              "flex w-full flex-col rounded-xl border bg-card p-6 text-card-foreground transition-colors sm:p-10 space-y-5",
               styling.disabled
                 ? "cursor-not-allowed opacity-40" 
-                : "hover:bg-muted/50 cursor-pointer", 
-                selectedStyling === styling.value && "bg-muted hover:bg-muted" 
+                : "hover:bg-gradient-to-br from-muted/50 to-background cursor-pointer", 
+                selectedStyling === styling.value && "bg-gradient-to-br dark:from-muted dark:to-background from-primary-foreground to-muted" 
             )}
           >
+            {styling.customIcon ? (
+              <div className="relative">
+                {styling.customIcon}
+              </div>
+            ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -53,8 +59,12 @@ export default function StylingStep({ selectedStyling, onSelect }: StylingStepPr
             >
               <path d={styling.icon}></path>
             </svg>
-            <p className="font-medium mt-2">{styling.label}</p>
-            <p className="text-sm text-muted-foreground">{styling.description}</p>
+            )}
+
+            <div>
+              <h3 className="font-medium">{styling.label}</h3>
+              <p className="text-[12px] sm:text-sm text-muted-foreground tracking-tight">{styling.description}</p>
+            </div>
           </div>
         ))}
       </div>
