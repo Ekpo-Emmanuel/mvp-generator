@@ -1,8 +1,10 @@
 'use client';
 
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import LogoSvg from './svgs/logo';
 
 interface StepNavigationProps {
   currentStep: number;
@@ -13,7 +15,7 @@ interface StepNavigationProps {
 
 export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: StepNavigationProps) {
   return (
-    <div className="flex justify-between px-4 lg:px-0 pb-4 pt-2 max-w-4xl mx-auto">
+    <div className="flex items-center justify-between px-4 lg:px-0 pb-4 pt-2 max-w-4xl mx-auto">
       <Button
         variant="outline"
         onClick={onBack}
@@ -25,6 +27,24 @@ export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: Step
       >
         <ChevronLeft className="mr-2 h-4 w-4" /> Back
       </Button>
+      {(currentStep + 1) !== totalSteps && (
+        <p className="text-xs cursor-default tracking-tighter">
+          {currentStep + 1} - {totalSteps - 1}
+        </p>
+      )}
+      {currentStep === totalSteps - 1 && (
+         <>
+          <div className="grid gap-0">
+              <span className="text-[9px] text-right cursor-default text-muted-foreground relative">
+                For developers
+              </span>
+              <span className="text-[11px] cursor-default text-muted-foreground relative">
+                <Link href="/v2" className="absolute top-0 left-0 scale-[0.5] -translate-x-5">
+                  <LogoSvg className="fill-primary"/>
+                </Link> by <Link href={`https://github.com/Ekpo-Emmanuel`} target="_blank" className="font-medium cursor-pointer text-primary">Emmanuel Ekpo</Link></span>
+          </div>
+        </>
+      )}
       <Button
         onClick={onNext}
         disabled={currentStep === totalSteps - 1}
