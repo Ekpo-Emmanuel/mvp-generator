@@ -6,11 +6,32 @@ import FrameworkStep from '@/components/v2/steps/framework-step'
 import AuthenticationStep from '@/components/v2/steps/authentication-step'
 import DatabaseStep from '@/components/v2/steps/database-step'
 import StylingStep from '@/components/v2/steps/styling-step'
-import SummaryStep from '@/components/v2/steps/summary-step'
-import { StepIndicator } from '@/components/v2/step-indicator'
+import SummaryStep from '@/components/v2/steps/summary/summary-step'
 import { StepNavigation } from './step-navigation'
 
-const steps = ['Framework', 'Authentication', 'Database(Coming soon)', 'Styling', 'Summary']
+const steps = [
+  {
+    title: 'Framework', 
+    description: 'Select the framework for your project.',
+  },
+  {
+    title: 'Authentication', 
+    description: 'Choose your authentication method.',
+  },
+  {
+    title: 'Database', 
+    description: 'Select a database option (available soon).',
+  },
+  {
+    title: 'Styling', 
+    description: 'Pick a styling solution for your project.',
+  },
+  {
+    title: 'Summary',
+    description: 'Review your selections before generating the project.',
+  },
+];
+
 
 export default function StepsWrapper() {
   const [currentStep, setCurrentStep] = useState(0)
@@ -58,14 +79,14 @@ export default function StepsWrapper() {
   }, [currentStep, selectedOptions, handleOptionChange])
 
   return (
-    <div className="space-y-12 pb-16">
-      <div className="max-w-sm">
-        <StepIndicator currentStep={currentStep} totalSteps={steps.length} />
-      </div>
+    <div className="space-y-12 pb-16 w-full">
       <div className="text-card-foreground">
-        <div className="p-0 space-y-4">
-          <h2 className="text-2xl font-bold">{steps[currentStep]}</h2>
-          <div>
+        <div className="space-y-12 md:space-y-14">
+          <div className="sticky top-[49px] z-10 bg-background py-4 pt-10">
+            <h2 className="text-2xl font-bold">{steps[currentStep].title}</h2>
+            <p className="text-sm text-foreground opacity-70">{steps[currentStep].description}</p>
+          </div>
+          <div className="">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
