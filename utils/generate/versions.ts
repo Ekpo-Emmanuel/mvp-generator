@@ -1,0 +1,17 @@
+export const VERSIONS = {
+  react: "^19.0.0",
+  reactRemix: "^18.3.1",
+  next: "15.4.8",
+  vite: "^6.0.1",
+  remix: "^2.15.2",
+  clerkNext: "^6.12.0",
+  clerkReact: "^5.25.0",
+  clerkRemix: "^4.4.0",
+  firebase: "^11.0.0",
+  supabase: "^2.47.0",
+  auth0Next: "^3.5.0",
+  auth0React: "^2.2.4",
+  mongodb: "^6.12.0",
+  tailwind: "^3.4.17",
+  typescript: "^5.7.0",
+} as const;

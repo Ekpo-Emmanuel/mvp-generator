@@ -11,9 +11,10 @@ interface StepNavigationProps {
   totalSteps: number;
   onBack: () => void;
   onNext: () => void;
+  nextDisabled?: boolean;
 }
 
-export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: StepNavigationProps) {
+export function StepNavigation({ currentStep, totalSteps, onBack, onNext, nextDisabled }: StepNavigationProps) {
   return (
     <div className="flex items-center justify-between px-4 lg:px-0 pb-4 pt-2 max-w-4xl mx-auto">
       <Button
@@ -47,7 +48,7 @@ export function StepNavigation({ currentStep, totalSteps, onBack, onNext }: Step
       )}
       <Button
         onClick={onNext}
-        disabled={currentStep === totalSteps - 1}
+        disabled={currentStep === totalSteps - 1 || nextDisabled}
         className={cn(
           "bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 ease-in-out",
           currentStep === totalSteps - 1 ? "opacity-50 cursor-not-allowed hidden" : ""

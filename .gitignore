@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+.smoke-kits
 
 # next.js
 /.next/

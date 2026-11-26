@@ -10,6 +10,13 @@ interface AuthenticationStepProps {
 
 const authOptions = [
   {
+    value: "none",
+    label: "No auth",
+    icon: "M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z",
+    disabled: false,
+    description: "Skip authentication",
+  },
+  {
     value: "clerk",
     label: "Clerk",
     customIcon: <ClerkSvg />,
@@ -20,21 +27,21 @@ const authOptions = [
     value: "auth0",
     label: "Auth0",
     icon: "M21.98 7.45 19.621 0H4.348L2.02 7.45c-1.352 4.312.03 9.202 3.816 12.015L12.008 24l6.156-4.55c3.754-2.813 5.184-7.688 3.816-12.016l-6.16 4.578 2.34 7.453-6.156-4.598-6.156 4.578 2.355-7.433-6.187-4.547 7.632-.047L12.008 0l2.355 7.402Zm0 0",
-    disabled: true,
+    disabled: false,
     description: 'Enterprise-ready auth platform',
   },
   {
     value: "firebase",
     label: "Firebase",
     customIcon: <FirebaseSvg fill="currentColor" className="size-10 -translate-x-[6px]"/>,
-    disabled: true,
+    disabled: false,
     description: 'Authentication by Google',
   },
   { 
     value: 'supabase', 
     label: 'Supabase', 
     icon: 'M13.297 23.016c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317ZM9.457.434c.598-.754 1.809-.34 1.82.617l.094 14.035h-9.32c-1.707 0-2.66-1.973-1.598-3.313Zm3.84 22.582c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0',
-    disabled: true,
+    disabled: false,
     description: 'Open source auth provider',
   },
 ];

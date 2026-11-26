@@ -8,33 +8,39 @@ interface DatabaseStepProps {
 }
 
 const databases = [
+  {
+      value: "none",
+      label: "No database",
+      icon: "M3 5h18v4H3zm0 6h18v8H3z",
+      disabled: false,
+      description: "Skip database setup",
+  },
   { 
       value: 'supabase', 
       label: 'Supabase', 
       icon: 'M13.297 23.016c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317ZM9.457.434c.598-.754 1.809-.34 1.82.617l.094 14.035h-9.32c-1.707 0-2.66-1.973-1.598-3.313Zm3.84 22.582c-.598.75-1.809.34-1.824-.621l-.207-14.036h9.437c1.707 0 2.66 1.977 1.598 3.317Zm0 0',
-      disabled: true,
+      disabled: false,
       description: 'Open source Firebase alternative',
   },
   { 
       value: 'firebase', 
       label: 'Firebase', 
-      // icon: 'M18.874 9.935 16.6 5.584a.677.677 0 0 0-1.198-.004l-.002.004-9.985 17.894zm7.978 15.267L24.04 7.707a.676.676 0 0 0-1.149-.369L5.147 25.203l9.817 5.532c.286.163.628.26.992.26s.707-.096 1.002-.265l-.01.005zM5.865 20.589 8.82 1.581a.679.679 0 0 1 1.267-.22l.002.004 3.178 5.962z',
       customIcon: <FirebaseSvg fill="currentColor" className="size-10 -translate-x-1"/>,
-      disabled: true ,
+      disabled: false ,
       description: 'Database by Google',
   },
   { 
       value: 'xata', 
       label: 'Xata', 
       icon: 'M.5 6.602a8.58 8.58 0 0 0 2.524 6.066l5.723 5.703c.199.198.521.198.707-.011a8.577 8.577 0 0 0-.362-11.769l-5.229-5.21C3.392.91 2.62.908 2.221 1.439A8.58 8.58 0 0 0 .5 6.602 M20.976 12.634a8.58 8.58 0 0 0 .803-11.229c-.4-.532-1.17-.528-1.642-.059l-5.229 5.211a8.58 8.58 0 0 0-.362 11.769c.186.21.508.209.707.011z M19.1 22.914c.471.47 1.24.475 1.66-.04 1.165-1.428 1.94-3.076 2.193-4.696.277-1.77-.089-3.378-1.02-4.541-.175-.219-.498-.218-.697-.02l-5.364 5.345a.507.507 0 0 0-.001.718z M3.24 22.909c.42.515 1.19.511 1.66.04l3.23-3.233a.507.507 0 0 0-.002-.718l-5.364-5.346c-.198-.197-.522-.199-.697.02-.93 1.163-1.297 2.771-1.02 4.541.253 1.62 1.028 3.268 2.193 4.696',
-      disabled: true ,
+      disabled: false ,
       description: 'Serverless database platform',
   },
   { 
       value: 'mongodb', 
       label: 'MongoDB', 
       customIcon: <MongoDBSvg fill="currentColor" className="size-10 -translate-x-3"/>,
-      disabled: true ,
+      disabled: false ,
       description: 'Document-based database',
   },
   // {

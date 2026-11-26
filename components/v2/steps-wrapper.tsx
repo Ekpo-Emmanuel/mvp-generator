@@ -20,7 +20,7 @@ const steps = [
   },
   {
     title: 'Database', 
-    description: 'Select a database option (available soon).',
+    description: 'Select a database option.',
   },
   {
     title: 'Styling', 
@@ -49,11 +49,16 @@ export default function StepsWrapper() {
     }))
   }, [])
 
+  const stepKeys = ['framework', 'authentication', 'database', 'styling'] as const
+
+  const canProceed = currentStep >= 4 || Boolean(selectedOptions[stepKeys[currentStep]])
+
   const handleNext = useCallback(() => {
+    if (!canProceed) return
     if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1)
     }
-  }, [currentStep])
+  }, [currentStep, canProceed])
 
   const handleBack = useCallback(() => {
     if (currentStep > 0) {
@@ -105,6 +110,7 @@ export default function StepsWrapper() {
               totalSteps={steps.length}
               onBack={handleBack}
               onNext={handleNext}
+              nextDisabled={!canProceed}
             />
           </div>
         </div>
