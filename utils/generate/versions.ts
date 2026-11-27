@@ -1,7 +1,7 @@
 export const VERSIONS = {
   react: "^19.0.0",
   reactRemix: "^18.3.1",
-  next: "15.4.8",
+  next: "15.5.29",
   vite: "^6.0.1",
   remix: "^2.15.2",
   clerkNext: "^6.12.0",
