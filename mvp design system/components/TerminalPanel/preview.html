@@ -1,0 +1,101 @@
+<!-- @dsCard group="Panels" height=250 subtitle="file list + status" -->
+<!doctype html><meta charset="utf-8" /><link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+/>
+<style>
+  body {
+    margin: 0;
+    padding: 28px;
+    background: var(--bg);
+    font-family: var(--font-mono);
+  }
+  .p {
+    max-width: 420px;
+    background: var(--term);
+    color: #e8ebda;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font-size: 0.75rem;
+  }
+  .h {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 38px;
+    padding: 0 14px;
+    border-bottom: 1px solid #292c20;
+  }
+  .h b {
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .h span {
+    color: #9ea38f;
+  }
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 26px;
+    padding: 0 14px;
+  }
+  li i {
+    font-style: normal;
+    color: #858a74;
+  }
+  .tg {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font: 600 0.75rem var(--font-sans);
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: var(--radius-sm);
+    padding: 2px 8px 2px 3px;
+  }
+  .tg s {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: #6c47ff;
+    font-size: 10px;
+  }
+  .s {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 14px;
+    border-top: 1px solid #292c20;
+    color: #9ea38f;
+  }
+  .s b {
+    font-weight: 400;
+    color: var(--accent);
+  }
+</style>
+<div class="p">
+  <div class="h"><b>my-app/</b><span>15 files</span></div>
+  <ol>
+    <li><span>package.json</span></li>
+    <li>
+      <span>middleware.ts</span><em class="tg"><s>C</s>Clerk</em>
+    </li>
+    <li>
+      <span><i>app/dashboard/</i>page.tsx</span
+      ><em class="tg"><s>C</s>Clerk</em>
+    </li>
+    <li>
+      <span><i>app/</i>page.tsx</span>
+    </li>
+  </ol>
+  <div class="s"><b>●&nbsp;</b>ready on&nbsp;<b>http://localhost:3000</b></div>
+</div>

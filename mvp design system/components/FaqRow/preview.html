@@ -1,0 +1,70 @@
+<!-- @dsCard group="Containers" height=230 subtitle="exclusive disclosure" -->
+<!doctype html><meta charset="utf-8" /><link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+/>
+<style>
+  body {
+    margin: 0;
+    padding: 20px 28px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+    max-width: 520px;
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .pm {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+  .pm::before,
+  .pm::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 14px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform 0.2s;
+  }
+  .pm::after {
+    transform: rotate(90deg);
+  }
+  details[open] .pm::after {
+    transform: rotate(0);
+  }
+  .a {
+    padding: 0 0 20px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+</style>
+<details name="f" open>
+  <summary>Is it really free?<span class="pm"></span></summary>
+  <div class="a">
+    Yes. It is open source under the MIT licence. No account, no subscription.
+  </div>
+</details>
+<details name="f">
+  <summary>Do I need an account?<span class="pm"></span></summary>
+  <div class="a">No. The project is generated in your browser.</div>
+</details>

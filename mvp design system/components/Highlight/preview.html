@@ -1,0 +1,41 @@
+<!-- @dsCard group="Type" height=170 subtitle="marker swipe" -->
+<!doctype html><meta charset="utf-8" /><link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+/>
+<style>
+  body {
+    margin: 0;
+    padding: 28px;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  h1 {
+    margin: 0;
+    font: 600 3.2rem/1 var(--font-display);
+    letter-spacing: -0.03em;
+  }
+  u {
+    text-decoration: none;
+    color: var(--on-accent);
+    padding: 0 0.14em;
+    margin: 0 -0.14em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%23E3F23F' d='M1.5 17C22 8 58 14 99 4l-1.2 84C72 96 30 90 1 98z'/%3E%3C/svg%3E")
+      no-repeat 0 62%/0% 82%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: m 1s 0.4s cubic-bezier(0.7, 0, 0.25, 1) forwards;
+  }
+  @keyframes m {
+    to {
+      background-size: 100% 82%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    u {
+      animation: none;
+      background-size: 100% 82%;
+    }
+  }
+</style>
+<h1>More <u>getting somewhere.</u></h1>

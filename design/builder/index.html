@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Build your starter · mvp</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("mvp-theme");
+          if (!t)
+            t = matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #fff;
+        --panel: #fff;
+        --wash: #f7f8f1;
+        --sunk: #eff2e3;
+        --ink: #12140d;
+        --ink-2: #3a3d30;
+        --mute: #5e6256;
+        --line: #e2e5d3;
+        --line-2: #c9ceb5;
+        --accent: #e3f23f;
+        --accent-soft: #f5facb;
+        --on-accent: #12140d;
+        --term: #12140d;
+        --action: #12140d;
+        --on-action: #fff;
+        --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+        --font-sans: "Geist", system-ui, sans-serif;
+        --font-mono: "Geist Mono", ui-monospace, monospace;
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 14px;
+        --radius-xl: 18px;
+        --gut: 28px;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0d0f09;
+        --panel: #14170e;
+        --wash: #1a1d13;
+        --sunk: #1a1d13;
+        --ink: #ecefdd;
+        --ink-2: #c4c8b1;
+        --mute: #9aa085;
+        --line: #262a1c;
+        --line-2: #373c29;
+        --accent-soft: #2b330c;
+        --term: #050603;
+        --action: #ecefdd;
+        --on-action: #12140d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      .ic {
+        width: 1.15em;
+        height: 1.15em;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex: none;
+      }
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+      :focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+
+      /* header */
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        padding: 0 var(--gut);
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font: 600 1.2rem var(--font-sans);
+        letter-spacing: -0.03em;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .logo svg {
+        width: 22px;
+        height: 22px;
+      }
+      .top-r {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .exit {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--ink-2);
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: var(--radius-md);
+      }
+      .exit:hover {
+        color: var(--ink);
+        background: var(--sunk);
+      }
+      .theme {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: var(--radius-md);
+        background: none;
+        color: var(--ink-2);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .theme:hover {
+        background: var(--sunk);
+        color: var(--ink);
+      }
+      .theme .ic {
+        grid-area: 1/1;
+        width: 18px;
+        height: 18px;
+        stroke-width: 1.8;
+        transition:
+          transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1),
+          opacity 0.25s;
+      }
+      .theme .sun {
+        opacity: 0;
+        transform: rotate(-70deg) scale(0.5);
+      }
+      html[data-theme="dark"] .theme .sun {
+        opacity: 1;
+        transform: none;
+      }
+      html[data-theme="dark"] .theme .moon {
+        opacity: 0;
+        transform: rotate(70deg) scale(0.5);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .theme-anim,
+        .theme-anim *,
+        .theme-anim *::before,
+        .theme-anim *::after {
+          transition:
+            background-color 0.3s,
+            color 0.3s,
+            border-color 0.3s,
+            fill 0.3s,
+            stroke 0.3s !important;
+        }
+      }
+
+      /* step rail */
+      .rail-wrap {
+        max-width: 1180px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 6px var(--gut) 0;
+      }
+      .rail {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .rail button {
+        all: unset;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        padding: 0 0 2px;
+      }
+      .rail button[disabled] {
+        cursor: default;
+      }
+      .rail .bar {
+        display: block;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--line);
+        overflow: hidden;
+        position: relative;
+      }
+      .rail .bar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--ink);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.3, 0.8, 0.3, 1);
+      }
+      .rail li.done .bar::after,
+      .rail li.now .bar::after {
+        transform: scaleX(1);
+      }
+      .rail li.now .bar::after {
+        background: var(--ink);
+      }
+      .rail .lab {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-top: 10px;
+        font: 500 0.8125rem var(--font-sans);
+        color: var(--mute);
+        white-space: nowrap;
+        transition: color 0.2s;
+      }
+      .rail .lab i {
+        font: 500 0.6875rem var(--font-mono);
+        font-style: normal;
+        letter-spacing: 0.02em;
+      }
+      .rail li.done .lab {
+        color: var(--ink-2);
+      }
+      .rail li.now .lab {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .rail button:not([disabled]):hover .lab {
+        color: var(--ink);
+      }
+      .rail button:focus-visible {
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+
+      /* layout */
+      main {
+        flex: 1;
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 36px var(--gut) 40px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 400px;
+        gap: 56px;
+        align-items: start;
+      }
+      .stage {
+        min-width: 0;
+      }
+      .eyebrow {
+        font: 500 0.75rem var(--font-mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--mute);
+        margin: 0 0 14px;
+      }
+      h1 {
+        font: 600 2.75rem/1.06 var(--font-display);
+        letter-spacing: -0.025em;
+        margin: 0;
+        font-variation-settings: "opsz" 96;
+        text-wrap: balance;
+      }
+      .sub {
+        margin: 14px 0 0;
+        color: var(--mute);
+        font-size: 1.0625rem;
+        max-width: 46ch;
+      }
+      .body {
+        margin-top: 32px;
+      }
+      .enter-f {
+        animation: inF 0.42s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+      }
+      .enter-b {
+        animation: inB 0.42s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+      }
+      @keyframes inF {
+        from {
+          opacity: 0;
+          transform: translateX(14px);
+        }
+      }
+      @keyframes inB {
+        from {
+          opacity: 0;
+          transform: translateX(-14px);
+        }
+      }
+
+      /* option cards */
+      .opts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      .opt {
+        position: relative;
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 14px 16px 14px 14px;
+        background: var(--panel);
+        border: 1px solid var(--line-2);
+        border-radius: var(--radius-lg);
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          background 0.2s,
+          transform 0.2s;
+      }
+      .opt:hover {
+        border-color: var(--ink);
+      }
+      .opt:active {
+        transform: scale(0.99);
+      }
+      .opt .tile {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: #fff;
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        transition: border-color 0.2s;
+      }
+      html[data-theme="dark"] .opt .tile {
+        border-color: transparent;
+      }
+      .opt .tile svg {
+        width: 24px;
+        height: 24px;
+      }
+      .opt .tile .ic {
+        color: #5e6256;
+        stroke-width: 1.8;
+        width: 22px;
+        height: 22px;
+      }
+      .opt .tile .mono {
+        font: 600 1rem var(--font-mono);
+        color: #12140d;
+      }
+      .opt b {
+        display: block;
+        font: 600 1rem/1.25 var(--font-sans);
+        letter-spacing: -0.01em;
+        padding-right: 26px;
+      }
+      .opt small {
+        display: block;
+        margin-top: 2px;
+        font-size: 0.8125rem;
+        line-height: 1.4;
+        color: var(--mute);
+      }
+      .opt .tick {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid var(--line-2);
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .opt .tick .ic {
+        width: 12px;
+        height: 12px;
+        stroke-width: 3;
+        color: var(--on-accent);
+        stroke-dasharray: 20;
+        stroke-dashoffset: 20;
+        transition: stroke-dashoffset 0.3s 0.05s;
+      }
+      .opt:has(input:checked) {
+        border-color: var(--ink);
+        background: var(--accent-soft);
+      }
+      .opt:has(input:checked) .tick {
+        background: var(--accent);
+        border-color: #bfce26;
+      }
+      .opt:has(input:checked) .tick .ic {
+        stroke-dashoffset: 0;
+      }
+      .opt:has(input:focus-visible) {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .opts.skip-first .opt:first-child {
+        grid-column: 1/-1;
+      }
+
+      /* review */
+      .rev {
+        border: 1px solid var(--line-2);
+        border-radius: var(--radius-lg);
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .rev-row {
+        display: grid;
+        grid-template-columns: 96px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--line);
+      }
+      .rev-row:first-child {
+        border-top: 0;
+      }
+      .rev-row .k {
+        font: 500 0.75rem var(--font-mono);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+      .rev-row .v {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        min-width: 0;
+      }
+      .rev-row .v .tile {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: #fff;
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      html[data-theme="dark"] .rev-row .v .tile {
+        border-color: transparent;
+      }
+      .rev-row .v .tile svg {
+        width: 17px;
+        height: 17px;
+      }
+      .rev-row .v .tile .ic {
+        color: #5e6256;
+        width: 16px;
+        height: 16px;
+        stroke-width: 1.8;
+      }
+      .rev-row .v .tile .mono {
+        font: 600 0.8rem var(--font-mono);
+        color: #12140d;
+      }
+      .rev-row .v span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .link {
+        all: unset;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--ink-2);
+        padding: 6px 8px;
+        margin: -6px -8px;
+        border-radius: var(--radius-sm);
+        text-decoration: underline;
+        text-decoration-color: var(--line-2);
+        text-underline-offset: 3px;
+      }
+      .link:hover {
+        color: var(--ink);
+        text-decoration-color: var(--ink);
+      }
+      .link:focus-visible {
+        outline: 2px solid var(--ink);
+      }
+      .field {
+        margin-top: 24px;
+      }
+      .field label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .field .in {
+        display: flex;
+        align-items: center;
+        height: 46px;
+        border: 1px solid var(--line-2);
+        border-radius: var(--radius-md);
+        background: var(--panel);
+        padding: 0 14px;
+        font-family: var(--font-mono);
+        font-size: 0.9375rem;
+        transition: border-color 0.15s;
+      }
+      .field .in:focus-within {
+        border-color: var(--ink);
+      }
+      .field .in input {
+        all: unset;
+        flex: 1;
+        min-width: 0;
+      }
+      .field .in em {
+        font-style: normal;
+        color: var(--mute);
+      }
+      .field p {
+        margin: 8px 0 0;
+        font-size: 0.8125rem;
+        color: var(--mute);
+      }
+
+      /* buttons (design system) */
+      .btn {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        height: 46px;
+        padding: 0 20px;
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        font: 600 0.94rem var(--font-sans);
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          background 0.15s,
+          border-color 0.15s;
+        white-space: nowrap;
+      }
+      .btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+          105deg,
+          transparent 35%,
+          rgba(255, 255, 255, 0.28) 50%,
+          transparent 65%
+        );
+        transform: translateX(-120%);
+        transition: transform 0.7s;
+      }
+      .btn:hover::after {
+        transform: translateX(120%);
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-accent {
+        background: linear-gradient(180deg, #ecf863, #e3f23f 55%, #daea30);
+        border-color: #bfce26;
+        color: #12140d;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.65),
+          inset 0 -1px 0 rgba(120, 135, 10, 0.22);
+      }
+      .btn-line {
+        background: var(--panel);
+        border-color: var(--line-2);
+        color: var(--ink);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+      html[data-theme="dark"] .btn-line {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+      .btn-line:hover {
+        border-color: var(--ink);
+      }
+      .btn[disabled] {
+        opacity: 0.45;
+        pointer-events: none;
+      }
+      .btn.work {
+        pointer-events: none;
+      }
+      .btn .prog {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        background: var(--ink);
+        transform-origin: left;
+        animation: prog 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        z-index: -1;
+      }
+      @keyframes prog {
+        0% {
+          transform: scaleX(0);
+          transform-origin: left;
+        }
+        50% {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+        51% {
+          transform: scaleX(1);
+          transform-origin: right;
+        }
+        100% {
+          transform: scaleX(0);
+          transform-origin: right;
+        }
+      }
+
+      /* preview terminal */
+      .preview {
+        position: sticky;
+        top: 24px;
+      }
+      .pv-cap {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 0 2px 10px;
+        font: 500 0.75rem var(--font-mono);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+      .pv-cap span:last-child {
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .term {
+        background: var(--term);
+        color: #e8ebda;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        font: 400 0.75rem var(--font-mono);
+      }
+      .term .h {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+        padding: 0 14px;
+        border-bottom: 1px solid #292c20;
+      }
+      .term .h b {
+        font-weight: 500;
+        color: var(--accent);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 70%;
+      }
+      .term .h span {
+        color: #9ea38f;
+        font-variant-numeric: tabular-nums;
+      }
+      .term ol {
+        list-style: none;
+        margin: 0;
+        padding: 6px 0;
+        min-height: 312px;
+      }
+      .term li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        height: 26px;
+        padding: 0 14px;
+        white-space: nowrap;
+      }
+      .term li > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+      .term li i {
+        font-style: normal;
+        color: #858a74;
+      }
+      .term li.new {
+        animation: rowIn 0.5s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+      }
+      @keyframes rowIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+          background: rgba(227, 242, 63, 0.14);
+        }
+        60% {
+          background: rgba(227, 242, 63, 0.14);
+        }
+        to {
+          background: transparent;
+        }
+      }
+      .tg {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font: 600 0.75rem var(--font-sans);
+        background: rgba(255, 255, 255, 0.09);
+        border-radius: var(--radius-sm);
+        padding: 2px 8px 2px 3px;
+        flex: none;
+      }
+      .tg s {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        text-decoration: none;
+      }
+      .tg s svg {
+        width: 10px;
+        height: 10px;
+      }
+      .tg s .mono {
+        font: 700 9px var(--font-mono);
+        color: #12140d;
+      }
+      .term .s {
+        display: flex;
+        align-items: center;
+        height: 42px;
+        padding: 0 14px;
+        border-top: 1px solid #292c20;
+        color: #9ea38f;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .term .s b {
+        font-weight: 400;
+        color: var(--accent);
+      }
+      .term .dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        margin-right: 9px;
+        animation: pulse 2.2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.35;
+        }
+      }
+      .term .caret {
+        display: inline-block;
+        width: 6px;
+        height: 12px;
+        background: var(--accent);
+        margin-left: 6px;
+        animation: blink 1.1s steps(1) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+      .pv-note {
+        margin: 10px 2px 0;
+        font-size: 0.75rem;
+        color: var(--mute);
+      }
+
+      /* bottom nav */
+      .nav {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        background: var(--bg);
+        border-top: 1px solid var(--line);
+      }
+      .nav-in {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 12px var(--gut);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .nav .mid {
+        flex: 1;
+        min-width: 0;
+        font: 500 0.75rem var(--font-mono);
+        color: var(--mute);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .nav .mid b {
+        font-weight: 500;
+        color: var(--ink-2);
+      }
+      .nav .btn-accent {
+        min-width: 132px;
+      }
+      .status {
+        position: fixed;
+        left: 50%;
+        bottom: 84px;
+        transform: translate(-50%, 10px);
+        background: var(--term);
+        color: #e8ebda;
+        font: 500 0.8125rem var(--font-sans);
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+        max-width: calc(100vw - 36px);
+        text-align: center;
+        z-index: 10;
+      }
+      .status.on {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      @media (max-width: 979px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 36px;
+          padding-top: 28px;
+        }
+        .preview {
+          position: static;
+          max-width: 520px;
+        }
+      }
+      @media (max-width: 640px) {
+        :root {
+          --gut: 18px;
+        }
+        .top {
+          height: 54px;
+        }
+        .exit {
+          display: none;
+        }
+        .rail {
+          gap: 6px;
+        }
+        .rail .lab {
+          font-size: 0.75rem;
+          margin-top: 8px;
+        }
+        .rail .lab i {
+          display: none;
+        }
+        .rail li:not(.now) .lab span {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+        }
+        .rail li.now {
+          grid-column: span 1;
+        }
+        .rail {
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+        .rail li.now .lab {
+          position: relative;
+        }
+        main {
+          padding-top: 24px;
+          padding-bottom: 28px;
+        }
+        h1 {
+          font-size: 2.125rem;
+        }
+        .sub {
+          font-size: 1rem;
+          margin-top: 10px;
+        }
+        .body {
+          margin-top: 24px;
+        }
+        .eyebrow {
+          margin-bottom: 10px;
+        }
+        .opts {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 10px;
+        }
+        .opt {
+          padding: 12px 14px 12px 12px;
+          grid-template-columns: 40px 1fr;
+          gap: 12px;
+        }
+        .opt .tile {
+          width: 40px;
+          height: 40px;
+        }
+        .rev-row {
+          grid-template-columns: 1fr auto;
+          row-gap: 6px;
+        }
+        .rev-row .k {
+          grid-column: 1/-1;
+        }
+        .nav .mid {
+          display: none;
+        }
+        .nav-in {
+          padding: 10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+        }
+        .nav .btn {
+          height: 48px;
+        }
+        .nav .btn-accent {
+          flex: 1;
+        }
+        .nav .btn-line {
+          padding: 0 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .enter-f,
+        .enter-b,
+        .term li.new {
+          animation: none;
+        }
+        .term .dot,
+        .term .caret,
+        .btn .prog {
+          animation: none;
+        }
+        .btn::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-r" viewBox="0 0 24 24">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </symbol>
+      <symbol id="i-l" viewBox="0 0 24 24">
+        <path d="M19 12H5M11 6l-6 6 6 6" />
+      </symbol>
+      <symbol id="i-ck" viewBox="0 0 24 24">
+        <path d="M5 12.5l4.5 4.5L19 7.5" />
+      </symbol>
+      <symbol id="i-no" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M6 18L18 6" />
+      </symbol>
+      <symbol id="i-dl" viewBox="0 0 24 24">
+        <path d="M12 4v11M7 11l5 5 5-5M5 20h14" />
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4" />
+        <path
+          d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"
+        />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z" />
+      </symbol>
+    </svg>
+
+    <header class="top">
+      <a class="logo" href="#" aria-label="mvp home" data-home
+        ><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M2 21 6.5 7h3.6L5.6 21zM9.5 21l3.2-10h3.6L13.1 21zM17 21l2.2-7H23l-2.2 7z"
+            fill="currentColor"
+          /></svg
+        >mvp</a
+      >
+      <div class="top-r">
+        <a class="exit" href="#" data-home>Back to site</a>
+        <button
+          class="theme"
+          id="theme"
+          type="button"
+          aria-label="Switch colour theme"
+        >
+          <svg class="ic moon"><use href="#i-moon" /></svg
+          ><svg class="ic sun"><use href="#i-sun" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="rail-wrap">
+      <ol class="rail" id="rail" aria-label="Progress"></ol>
+    </div>
+
+    <main>
+      <section class="stage" id="stage" aria-live="polite"></section>
+      <aside class="preview" aria-label="Preview of your project">
+        <div class="pv-cap"><span>Preview</span></div>
+        <div class="term">
+          <div class="h">
+            <b id="pv-name">my-app/</b><span id="pv-count">0 files</span>
+          </div>
+          <ol id="pv-list"></ol>
+          <div class="s">
+            <span class="dot"></span
+            ><span id="pv-status"
+              >ready on&nbsp;<b>http://localhost:3000</b></span
+            ><span class="caret"></span>
+          </div>
+        </div>
+        <p class="pv-note">
+          File names are a sketch. Your zip has the real thing.
+        </p>
+      </aside>
+    </main>
+
+    <footer class="nav">
+      <div class="nav-in">
+        <button class="btn btn-line" id="back" type="button">
+          <svg class="ic"><use href="#i-l" /></svg>Back
+        </button>
+        <button class="btn btn-accent" id="next" type="button">
+          <span id="next-l">Next</span
+          ><svg class="ic" id="next-i"><use href="#i-r" /></svg>
+        </button>
+      </div>
+    </footer>
+    <div class="status" id="status" role="status"></div>
+
+    <script>
+      /* ---- hooks you wire up ----
+   window.MVP_GENERATE = async ({name, framework, auth, database, styling}) => { ...build and download the zip... }
+   window.MVP_HOME     = '/'   // where the logo and "Back to site" go */
+      var SI = {
+        next: {
+          p: "M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z",
+          h: "000000",
+        },
+        vite: {
+          p: "M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z",
+          h: "9135FF",
+        },
+        remix: {
+          p: "M21.511 18.508c.216 2.773.216 4.073.216 5.492H15.31c0-.309.006-.592.011-.878.018-.892.036-1.821-.109-3.698-.19-2.747-1.374-3.358-3.55-3.358H1.574v-5h10.396c2.748 0 4.122-.835 4.122-3.049 0-1.946-1.374-3.125-4.122-3.125H1.573V0h11.541c6.221 0 9.313 2.938 9.313 7.632 0 3.511-2.176 5.8-5.114 6.182 2.48.497 3.93 1.909 4.198 4.694ZM1.573 24v-3.727h6.784c1.133 0 1.379.84 1.379 1.342V24Z",
+          h: "000000",
+        },
+        react: {
+          p: "M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z",
+          h: "61DAFB",
+        },
+        clerk: {
+          p: "m21.47 20.829-2.881-2.881a.572.572 0 0 0-.7-.084 6.854 6.854 0 0 1-7.081 0 .576.576 0 0 0-.7.084l-2.881 2.881a.576.576 0 0 0-.103.69.57.57 0 0 0 .166.186 12 12 0 0 0 14.113 0 .58.58 0 0 0 .239-.423.576.576 0 0 0-.172-.453Zm.002-17.668-2.88 2.88a.569.569 0 0 1-.701.084A6.857 6.857 0 0 0 8.724 8.08a6.862 6.862 0 0 0-1.222 3.692 6.86 6.86 0 0 0 .978 3.764.573.573 0 0 1-.083.699l-2.881 2.88a.567.567 0 0 1-.864-.063A11.993 11.993 0 0 1 6.771 2.7a11.99 11.99 0 0 1 14.637-.405.566.566 0 0 1 .232.418.57.57 0 0 1-.168.448Zm-7.118 12.261a3.427 3.427 0 1 0 0-6.854 3.427 3.427 0 0 0 0 6.854Z",
+          h: "6C47FF",
+        },
+        auth0: {
+          p: "M21.98 7.448L19.62 0H4.347L2.02 7.448c-1.352 4.312.03 9.206 3.815 12.015L12.007 24l6.157-4.552c3.755-2.81 5.182-7.688 3.815-12.015l-6.16 4.58 2.343 7.45-6.157-4.597-6.158 4.58 2.358-7.433-6.188-4.55 7.63-.045L12.008 0l2.356 7.404 7.615.044z",
+          h: "EB5424",
+        },
+        supabase: {
+          p: "M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z",
+          h: "3FCF8E",
+        },
+        firebase: {
+          p: "M19.455 8.369c-.538-.748-1.778-2.285-3.681-4.569-.826-.991-1.535-1.832-1.884-2.245a146 146 0 0 0-.488-.576l-.207-.245-.113-.133-.022-.032-.01-.005L12.57 0l-.609.488c-1.555 1.246-2.828 2.851-3.681 4.64-.523 1.064-.864 2.105-1.043 3.176-.047.241-.088.489-.121.738-.209-.017-.421-.028-.632-.033-.018-.001-.035-.002-.059-.003a7.46 7.46 0 0 0-2.28.274l-.317.089-.163.286c-.765 1.342-1.198 2.869-1.252 4.416-.07 2.01.477 3.954 1.583 5.625 1.082 1.633 2.61 2.882 4.42 3.611l.236.095.071.025.003-.001a9.59 9.59 0 0 0 2.941.568q.171.006.342.006c1.273 0 2.513-.249 3.69-.742l.008.004.313-.145a9.63 9.63 0 0 0 3.927-3.335c1.01-1.49 1.577-3.234 1.641-5.042.075-2.161-.643-4.304-2.133-6.371m-7.083 6.695c.328 1.244.264 2.44-.191 3.558-1.135-1.12-1.967-2.352-2.475-3.665-.543-1.404-.87-2.74-.974-3.975.48.157.922.366 1.315.622 1.132.737 1.914 1.902 2.325 3.461zm.207 6.022c.482.368.99.712 1.513 1.028-.771.21-1.565.302-2.369.273a8 8 0 0 1-.373-.022c.458-.394.869-.823 1.228-1.279zm1.347-6.431c-.516-1.957-1.527-3.437-3.002-4.398-.647-.421-1.385-.741-2.194-.95.011-.134.026-.268.043-.4.014-.113.03-.216.046-.313.133-.689.332-1.37.589-2.025.099-.25.206-.499.321-.74l.004-.008c.177-.358.376-.719.61-1.105l.092-.152-.003-.001c.544-.851 1.197-1.627 1.942-2.311l.288.341c.672.796 1.304 1.548 1.878 2.237 1.291 1.549 2.966 3.583 3.612 4.48 1.277 1.771 1.893 3.579 1.83 5.375-.049 1.395-.461 2.755-1.195 3.933-.694 1.116-1.661 2.05-2.8 2.708-.636-.318-1.559-.839-2.539-1.599.79-1.575.952-3.28.479-5.072zm-2.575 5.397c-.725.939-1.587 1.55-2.09 1.856-.081-.029-.163-.06-.243-.093l-.065-.026c-1.49-.616-2.747-1.656-3.635-3.01-.907-1.384-1.356-2.993-1.298-4.653.041-1.19.338-2.327.882-3.379.316-.07.638-.114.96-.131l.084-.002c.162-.003.324-.003.478 0 .227.011.454.035.677.07.073 1.513.445 3.145 1.105 4.852.637 1.644 1.694 3.162 3.144 4.515z",
+          h: "DD2C00",
+        },
+        tailwind: {
+          p: "M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z",
+          h: "06B6D4",
+        },
+        modules: {
+          p: "M19.705 2.147v19.706H0V2.147h19.705ZM.141 21.712h19.423V2.288H.141v19.424Zm2.561-10.444c.428 0 .76.113.996.338.236.225.367.482.393.768h-.446a.926.926 0 0 0-.303-.517c-.15-.128-.362-.191-.635-.191-.333 0-.602.117-.808.352-.204.233-.306.59-.306 1.074 0 .396.092.717.276.964.186.245.462.368.828.368.338 0 .595-.13.771-.389.094-.136.163-.316.21-.538h.446c-.04.356-.172.654-.396.895-.268.29-.63.434-1.086.434-.392 0-.722-.118-.989-.356-.35-.315-.527-.8-.527-1.456 0-.499.132-.907.396-1.226.285-.347.679-.52 1.18-.52Zm2.28 2.38c.01.192.056.348.135.467.152.224.42.336.803.336.172 0 .328-.024.47-.073.272-.095.409-.266.409-.511 0-.184-.058-.315-.173-.393-.116-.077-.299-.144-.547-.2l-.458-.104c-.299-.067-.51-.142-.635-.223-.214-.141-.322-.352-.322-.633 0-.303.105-.553.315-.747.21-.195.508-.292.893-.292.354 0 .655.085.902.257.248.17.372.443.372.82h-.43a.847.847 0 0 0-.147-.417c-.14-.177-.377-.265-.71-.265-.27 0-.465.057-.583.17a.533.533 0 0 0-.177.396c0 .166.07.287.207.364.09.049.295.11.614.184l.474.108c.229.052.405.123.53.214.214.158.321.387.321.687 0 .375-.136.642-.41.803a1.822 1.822 0 0 1-.947.242c-.42 0-.75-.108-.987-.322-.237-.213-.354-.502-.35-.867h.43Zm3.137 0c.011.192.056.348.136.467.152.224.42.336.803.336.171 0 .328-.024.469-.073.273-.095.41-.266.41-.511 0-.184-.058-.315-.173-.393-.117-.077-.3-.144-.548-.2l-.457-.104c-.3-.067-.511-.142-.635-.223-.215-.141-.322-.352-.322-.633 0-.303.105-.553.315-.747.21-.195.508-.292.892-.292.355 0 .655.085.902.257.249.17.373.443.373.82h-.43a.847.847 0 0 0-.148-.417c-.14-.177-.376-.265-.71-.265-.27 0-.464.057-.582.17a.533.533 0 0 0-.177.396c0 .166.069.287.207.364.09.049.295.11.614.184l.474.108c.228.052.404.123.529.214.214.158.322.387.322.687 0 .375-.137.642-.41.803a1.822 1.822 0 0 1-.947.242c-.42 0-.75-.108-.987-.322-.238-.213-.355-.502-.35-.867h.43Zm-6.197 3.6.97 2.857.965-2.857h.648v3.38h-.434v-1.995c0-.07.001-.183.004-.343.003-.16.005-.33.005-.513l-.964 2.85h-.453l-.97-2.85v.104c0 .083 0 .21.004.38.004.168.007.292.007.372v1.994h-.437v-3.379h.655Zm4.743-.091c.597 0 1.038.191 1.325.575.224.299.336.681.336 1.147 0 .505-.128.924-.384 1.259-.3.392-.73.589-1.286.589-.52 0-.929-.172-1.226-.516-.265-.33-.398-.75-.398-1.256 0-.457.113-.848.34-1.173.292-.417.723-.625 1.293-.625Zm.046 3.16c.403 0 .695-.144.874-.432.181-.29.272-.623.272-.999 0-.397-.105-.717-.313-.959-.207-.242-.49-.363-.851-.363-.35 0-.635.12-.856.36-.22.24-.331.594-.331 1.061 0 .375.094.69.283.948.19.256.497.384.922.384Zm3.455-.08c.155 0 .283-.017.382-.049a.84.84 0 0 0 .437-.345c.09-.136.156-.311.196-.524a2 2 0 0 0 .034-.355c0-.418-.083-.743-.25-.975-.166-.231-.434-.347-.803-.347H9.35v2.595h.816ZM8.89 17.247h1.368c.465 0 .825.165 1.081.495.229.297.343.679.343 1.143 0 .36-.067.683-.202.973-.238.512-.647.769-1.226.769H8.89v-3.38Zm3.88 0v2.089c0 .245.046.45.138.612.136.245.367.368.69.368.388 0 .652-.133.791-.398.076-.144.113-.338.113-.582v-2.089h.465v1.898c0 .415-.056.735-.168.96-.206.407-.594.61-1.164.61s-.958-.203-1.162-.61c-.112-.225-.168-.545-.168-.96v-1.898h.465Zm2.899 0Zm.458 0v2.977h1.711v.402h-2.17v-3.379h.459Zm2.208 0h2.463v.414h-2.017v1.026h1.865v.391h-1.865v1.146h2.052v.402h-2.498v-3.379Zm3.402 2.29c.01.19.056.347.135.466.152.224.42.336.803.336.172 0 .328-.025.47-.074.272-.095.409-.265.409-.51 0-.184-.058-.315-.173-.394-.116-.076-.299-.143-.547-.2l-.458-.103c-.299-.068-.51-.142-.635-.223-.215-.141-.322-.352-.322-.633 0-.304.105-.553.315-.748.21-.194.508-.292.893-.292.354 0 .655.086.901.258.249.17.373.443.373.819h-.43a.847.847 0 0 0-.147-.416c-.14-.177-.377-.265-.711-.265-.27 0-.464.057-.582.17a.533.533 0 0 0-.177.396c0 .165.069.287.207.363.09.05.295.11.614.184l.474.108c.228.053.405.124.529.214.215.158.322.388.322.688 0 .374-.136.642-.41.803a1.822 1.822 0 0 1-.947.241c-.42 0-.75-.107-.987-.322-.238-.213-.354-.502-.35-.867h.43Z",
+          h: "000000",
+        },
+        mongodb: {
+          p: "M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z",
+          h: "47A248",
+        },
+        bootstrap: {
+          p: "M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 11.39v1.218c-1.128.108-1.817.944-2.226 2.268-.407 1.319-.463 2.937-.42 4.186.045 1.3-.968 2.5-2.337 2.5H4.985c-1.37 0-2.383-1.2-2.337-2.5.043-1.249-.013-2.867-.42-4.186-.41-1.324-1.1-2.16-2.228-2.268V11.39c1.128-.108 1.819-.944 2.227-2.268.408-1.319.464-2.937.42-4.186-.045-1.3.968-2.5 2.338-2.5h14.032c1.37 0 2.382 1.2 2.337 2.5-.043 1.249.013 2.867.42 4.186.409 1.324 1.098 2.16 2.226 2.268zm-7.927 2.817c0-1.354-.953-2.333-2.368-2.488v-.057c1.04-.169 1.856-1.135 1.856-2.213 0-1.537-1.213-2.538-3.062-2.538h-4.16v10.172h4.181c2.218 0 3.553-1.086 3.553-2.876z",
+          h: "7952B3",
+        },
+        css: {
+          p: "M0 0v20.16A3.84 3.84 0 0 0 3.84 24h16.32A3.84 3.84 0 0 0 24 20.16V3.84A3.84 3.84 0 0 0 20.16 0Zm14.256 13.08c1.56 0 2.28 1.08 2.304 2.64h-1.608c.024-.288-.048-.6-.144-.84-.096-.192-.288-.264-.552-.264-.456 0-.696.264-.696.84-.024.576.288.888.768 1.08.72.288 1.608.744 1.92 1.296q.432.648.432 1.656c0 1.608-.912 2.592-2.496 2.592-1.656 0-2.4-1.032-2.424-2.688h1.68c0 .792.264 1.176.792 1.176.264 0 .456-.072.552-.24.192-.312.24-1.176-.048-1.512-.312-.408-.912-.6-1.32-.816q-.828-.396-1.224-.936c-.24-.36-.36-.888-.36-1.536 0-1.44.936-2.472 2.424-2.448m5.4 0c1.584 0 2.304 1.08 2.328 2.64h-1.608c0-.288-.048-.6-.168-.84-.096-.192-.264-.264-.528-.264-.48 0-.72.264-.72.84s.288.888.792 1.08c.696.288 1.608.744 1.92 1.296.264.432.408.984.408 1.656.024 1.608-.888 2.592-2.472 2.592-1.68 0-2.424-1.056-2.448-2.688h1.68c0 .744.264 1.176.792 1.176.264 0 .456-.072.552-.24.216-.312.264-1.176-.048-1.512-.288-.408-.888-.6-1.32-.816-.552-.264-.96-.576-1.2-.936s-.36-.888-.36-1.536c-.024-1.44.912-2.472 2.4-2.448m-11.031.018c.711-.006 1.419.198 1.839.63.432.432.672 1.128.648 1.992H9.336c.024-.456-.096-.792-.432-.96-.312-.144-.768-.048-.888.24-.12.264-.192.576-.168.864v3.504c0 .744.264 1.128.768 1.128a.65.65 0 0 0 .552-.264c.168-.24.192-.552.168-.84h1.776c.096 1.632-.984 2.712-2.568 2.688-1.536 0-2.496-.864-2.472-2.472v-4.032c0-.816.24-1.44.696-1.848.432-.408 1.146-.624 1.857-.63",
+          h: "663399",
+        },
+      };
+      function logo(k, sz) {
+        var o = SI[k];
+        return (
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' +
+          o.p +
+          '" fill="#' +
+          o.h +
+          '"/></svg>'
+        );
+      }
+      var NONE = '<svg class="ic"><use href="#i-no"/></svg>';
+      function mono(c) {
+        return '<span class="mono">' + c + "</span>";
+      }
+
+      var STEPS = [
+        {
+          id: "framework",
+          label: "Framework",
+          eyebrow: "Framework",
+          title: "Pick a framework",
+          sub: "What your app is built on. You can change anything later.",
+          opts: [
+            {
+              k: "next",
+              n: "Next.js",
+              d: "React Framework for Production",
+              m: logo("next"),
+            },
+            {
+              k: "vite",
+              n: "Vite",
+              d: "Next Generation Frontend Tooling",
+              m: logo("vite"),
+            },
+            {
+              k: "remix",
+              n: "Remix",
+              d: "Full stack web framework",
+              m: logo("remix"),
+            },
+            {
+              k: "react",
+              n: "React.js",
+              d: "A JavaScript library for building user interfaces",
+              m: logo("react"),
+            },
+          ],
+        },
+        {
+          id: "auth",
+          label: "Auth",
+          eyebrow: "Authentication",
+          title: "How do people sign in?",
+          sub: "Choose a provider, or skip it and add one later.",
+          skipFirst: true,
+          opts: [
+            { k: "none", n: "No auth", d: "Skip authentication", m: NONE },
+            {
+              k: "clerk",
+              n: "Clerk",
+              d: "Complete user management",
+              m: logo("clerk"),
+            },
+            {
+              k: "auth0",
+              n: "Auth0",
+              d: "Enterprise-ready auth platform",
+              m: logo("auth0"),
+            },
+            {
+              k: "firebase",
+              n: "Firebase",
+              d: "Authentication by Google",
+              m: logo("firebase"),
+            },
+            {
+              k: "supabase",
+              n: "Supabase",
+              d: "Open source auth, built on Postgres",
+              m: logo("supabase"),
+            },
+          ],
+        },
+        {
+          id: "database",
+          label: "Database",
+          eyebrow: "Database",
+          title: "Where does your data live?",
+          sub: "Pick a database, or skip it for now.",
+          skipFirst: true,
+          opts: [
+            { k: "none", n: "No database", d: "Skip database setup", m: NONE },
+            {
+              k: "supabase",
+              n: "Supabase",
+              d: "Open source Firebase alternative",
+              m: logo("supabase"),
+            },
+            {
+              k: "firebase",
+              n: "Firebase",
+              d: "Database by Google",
+              m: logo("firebase"),
+            },
+            {
+              k: "xata",
+              n: "Xata",
+              d: "Serverless database platform",
+              m: mono("X"),
+            },
+            {
+              k: "mongodb",
+              n: "MongoDB",
+              d: "Document database for modern apps",
+              m: logo("mongodb"),
+            },
+          ],
+        },
+        {
+          id: "styling",
+          label: "Styling",
+          eyebrow: "Styling",
+          title: "How should it look?",
+          sub: "The CSS setup your components start with.",
+          opts: [
+            {
+              k: "tailwind",
+              n: "Tailwind CSS",
+              d: "A utility-first CSS styling",
+              m: logo("tailwind"),
+            },
+            {
+              k: "bootstrap",
+              n: "Bootstrap",
+              d: "The world’s most popular CSS styling",
+              m: logo("bootstrap"),
+            },
+            {
+              k: "css",
+              n: "Plain CSS",
+              d: "Write your own custom CSS styles",
+              m: logo("css"),
+            },
+          ],
+        },
+      ];
+      var REVIEW = { id: "review", label: "Review" };
+      var sel = {
+        framework: "next",
+        auth: "none",
+        database: "none",
+        styling: "tailwind",
+      };
+      var name = "my-app";
+      var step = 0,
+        reached = 0,
+        dir = "f",
+        busy = false,
+        prevFiles = {};
+      var $ = function (s) {
+        return document.querySelector(s);
+      };
+      function opt(si, k) {
+        for (var i = 0; i < STEPS[si].opts.length; i++)
+          if (STEPS[si].opts[i].k === k) return STEPS[si].opts[i];
+      }
+      function tile(o) {
+        return '<span class="tile">' + o.m + "</span>";
+      }
+      function safeName() {
+        var n = (name || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9-_]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        return n || "my-app";
+      }
+
+      /* rail */
+      function drawRail() {
+        var all = STEPS.concat([REVIEW]),
+          h = "";
+        all.forEach(function (s, i) {
+          var cls = i < step ? "done" : i === step ? "now" : "";
+          h +=
+            '<li class="' +
+            cls +
+            '"><button type="button" data-go="' +
+            i +
+            '"' +
+            (i > reached ? " disabled" : "") +
+            (i === step ? ' aria-current="step"' : "") +
+            '><span class="bar"></span><span class="lab"><i>0' +
+            (i + 1) +
+            "</i><span>" +
+            s.label +
+            "</span></span></button></li>";
+        });
+        $("#rail").innerHTML = h;
+      }
+
+      /* stage */
+      function drawStage() {
+        var st = $("#stage"),
+          h = "";
+        if (step < STEPS.length) {
+          var S = STEPS[step];
+          h +=
+            "<h1>" +
+            S.title +
+            '</h1><p class="sub">' +
+            S.sub +
+            '</p><div class="body">';
+          h +=
+            '<div class="opts' +
+            (S.skipFirst ? " skip-first" : "") +
+            '" role="radiogroup" aria-label="' +
+            S.eyebrow +
+            '">';
+          S.opts.forEach(function (o) {
+            h +=
+              '<label class="opt"><input class="sr" type="radio" name="' +
+              S.id +
+              '" value="' +
+              o.k +
+              '"' +
+              (sel[S.id] === o.k ? " checked" : "") +
+              ">" +
+              tile(o) +
+              "<span><b>" +
+              o.n +
+              "</b><small>" +
+              o.d +
+              '</small></span><span class="tick"><svg class="ic"><use href="#i-ck"/></svg></span></label>';
+          });
+          h += "</div></div>";
+        } else {
+          h +=
+            '<h1>Ready when you are</h1><p class="sub">Check your choices, name the project, and download the zip.</p><div class="body"><div class="rev">';
+          STEPS.forEach(function (S, i) {
+            var o = opt(i, sel[S.id]);
+            h +=
+              '<div class="rev-row"><span class="k">' +
+              S.eyebrow +
+              '</span><span class="v"><span class="tile">' +
+              o.m +
+              "</span><span>" +
+              o.n +
+              '</span></span><button class="link" type="button" data-go="' +
+              i +
+              '">Change</button></div>';
+          });
+          h +=
+            '</div><div class="field"><label for="pname">Project name</label><div class="in"><input id="pname" value="' +
+            safeName() +
+            '" maxlength="40" autocomplete="off" spellcheck="false" aria-describedby="pn-h"><em>.zip</em></div><p id="pn-h">Used for the folder and the zip file.</p></div></div>';
+        }
+        st.innerHTML =
+          '<div class="' +
+          (dir === "f" ? "enter-f" : "enter-b") +
+          '">' +
+          h +
+          "</div>";
+      }
+
+      /* preview */
+      function files() {
+        var f = sel.framework,
+          a = sel.auth,
+          d = sel.database,
+          s = sel.styling,
+          L = [];
+        var nx = f === "next",
+          rx = f === "remix",
+          lib = nx ? "lib/" : "src/lib/",
+          css = nx || rx ? "app/" : "src/";
+        function add(dir, p, tag) {
+          L.push({ dir: dir, p: p, tag: tag || null });
+        }
+        add("", "package.json");
+        add("", nx ? "next.config.ts" : "vite.config.ts");
+        if (f === "react") {
+          L.pop();
+          add("", "index.html");
+        }
+        if (a === "clerk" && nx) add("", "middleware.ts", "clerk");
+        if (a !== "none") add(lib, "auth.ts", a);
+        if (d !== "none") add(lib, "db.ts", d);
+        if (nx) {
+          add("app/", "layout.tsx");
+          add("app/", "page.tsx");
+        } else if (rx) {
+          add("app/", "root.tsx");
+          add("app/routes/", "_index.tsx");
+        } else if (f === "vite") {
+          add("", "index.html");
+          add("src/", "main.tsx");
+          add("src/", "App.tsx");
+        } else {
+          add("src/", "index.jsx");
+          add("src/", "App.jsx");
+        }
+        if (s === "tailwind") {
+          add("", "tailwind.config.ts", "tailwind");
+          add("", "postcss.config.js");
+        } else if (s === "bootstrap") add(css, "bootstrap.scss", "bootstrap");
+        else add(css, "globals.css", "css");
+        if (a !== "none" || d !== "none") add("", ".env.example");
+        add("", "README.md");
+        return L;
+      }
+      var TAGMAP = {
+        clerk: ["clerk", "Clerk"],
+        auth0: ["auth0", "Auth0"],
+        firebase: ["firebase", "Firebase"],
+        supabase: ["supabase", "Supabase"],
+        mongodb: ["mongodb", "MongoDB"],
+        xata: ["xata", "Xata"],
+        tailwind: ["tailwind", "Tailwind"],
+        bootstrap: ["bootstrap", "Bootstrap"],
+        css: ["css", "CSS"],
+      };
+      function tag(t) {
+        if (!t) return "";
+        var m = TAGMAP[t];
+        var inner =
+          t === "xata"
+            ? '<span class="mono">X</span>'
+            : '<svg viewBox="0 0 24 24"><path d="' +
+              SI[m[0]].p +
+              '" fill="#' +
+              SI[m[0]].h +
+              '"/></svg>';
+        return '<em class="tg"><s>' + inner + "</s>" + m[1] + "</em>";
+      }
+      function drawPreview() {
+        var fl = files(),
+          h = "",
+          cur = {};
+        fl.forEach(function (x) {
+          var key = x.dir + x.p + "|" + (x.tag || "");
+          cur[key] = 1;
+          h +=
+            "<li" +
+            (prevFiles[key] ? "" : ' class="new"') +
+            "><span>" +
+            (x.dir ? "<i>" + x.dir + "</i>" : "") +
+            x.p +
+            "</span>" +
+            tag(x.tag) +
+            "</li>";
+        });
+        prevFiles = cur;
+        $("#pv-list").innerHTML = h;
+        $("#pv-count").textContent = fl.length + " files";
+        $("#pv-name").textContent = safeName() + "/";
+        var port = sel.framework === "vite" ? "5173" : "3000";
+        $("#pv-status").innerHTML =
+          "ready on&nbsp;<b>http://localhost:" + port + "</b>";
+      }
+
+      /* nav */
+      function drawNav() {
+        var last = step === STEPS.length;
+        $("#back").style.visibility = step === 0 ? "hidden" : "visible";
+        $("#next-l").textContent = last
+          ? "Download " + safeName() + ".zip"
+          : "Next";
+        $("#next-i").innerHTML =
+          '<use href="#' + (last ? "i-dl" : "i-r") + '"/>';
+      }
+      function render() {
+        drawRail();
+        drawStage();
+        drawPreview();
+        drawNav();
+        window.scrollTo(0, 0);
+      }
+      function go(i, d) {
+        if (i < 0 || i > STEPS.length || i > reached || busy) return;
+        dir = d || (i >= step ? "f" : "b");
+        step = i;
+        render();
+      }
+
+      /* events */
+      document.addEventListener("change", function (e) {
+        var t = e.target;
+        if (t.type === "radio") {
+          sel[t.name] = t.value;
+          drawPreview();
+          drawNav();
+        }
+      });
+      document.addEventListener("input", function (e) {
+        if (e.target.id === "pname") {
+          name = e.target.value;
+          drawPreview();
+          $("#next-l").textContent = "Download " + safeName() + ".zip";
+        }
+      });
+      document.addEventListener("click", function (e) {
+        var g = e.target.closest("[data-go]");
+        if (g) {
+          go(+g.getAttribute("data-go"));
+          return;
+        }
+        var hm = e.target.closest("[data-home]");
+        if (hm) {
+          e.preventDefault();
+          if (window.MVP_HOME) location.href = window.MVP_HOME;
+          return;
+        }
+      });
+      $("#back").addEventListener("click", function () {
+        go(step - 1, "b");
+      });
+      var st;
+      function say(t) {
+        var s = $("#status");
+        s.textContent = t;
+        s.classList.add("on");
+        clearTimeout(st);
+        st = setTimeout(function () {
+          s.classList.remove("on");
+        }, 3600);
+      }
+      $("#next").addEventListener("click", function () {
+        if (step < STEPS.length) {
+          reached = Math.max(reached, step + 1);
+          go(step + 1, "f");
+          return;
+        }
+        var b = $("#next"),
+          cfg = {
+            name: safeName(),
+            framework: sel.framework,
+            auth: sel.auth,
+            database: sel.database,
+            styling: sel.styling,
+          };
+        if (typeof window.MVP_GENERATE !== "function") {
+          say("Generator is not connected in this preview.");
+          return;
+        }
+        busy = true;
+        b.classList.add("work");
+        b.insertAdjacentHTML("beforeend", '<span class="prog"></span>');
+        $("#next-l").textContent = "Building…";
+        Promise.resolve(window.MVP_GENERATE(cfg))
+          .then(
+            function () {
+              say("Done. " + cfg.name + ".zip is on its way.");
+            },
+            function () {
+              say("Something went wrong. Try again.");
+            },
+          )
+          .then(function () {
+            busy = false;
+            b.classList.remove("work");
+            var p = b.querySelector(".prog");
+            if (p) p.remove();
+            drawNav();
+          });
+      });
+      $("#theme").addEventListener("click", function () {
+        var h = document.documentElement;
+        h.classList.add("theme-anim");
+        var n = h.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        h.setAttribute("data-theme", n);
+        try {
+          localStorage.setItem("mvp-theme", n);
+        } catch (e) {}
+        setTimeout(function () {
+          h.classList.remove("theme-anim");
+        }, 400);
+      });
+      render();
+    </script>
+  </body>
+</html>

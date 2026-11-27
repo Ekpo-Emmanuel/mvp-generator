@@ -1,0 +1,54 @@
+{
+  "manifestVersion": 3,
+  "name": "mvp design system",
+  "namespace": "mvp",
+  "files": [
+    "components/Button/README.md",
+    "components/Card/README.md",
+    "components/FaqRow/README.md",
+    "components/Highlight/README.md",
+    "components/IconButton/README.md",
+    "components/Tag/README.md",
+    "components/TerminalPanel/README.md",
+    "tokens.css"
+  ],
+  "libraries": [],
+  "components": [
+    {
+      "name": "Button",
+      "group": "Actions",
+      "summary": "The three actions on the page: lime for the main action, near-black for a neutral primary, outline for secondary."
+    },
+    {
+      "name": "Card",
+      "group": "Containers",
+      "summary": "The container for each demo on the page: an illustration zone on top, a title and one short paragraph below."
+    },
+    {
+      "name": "FaqRow",
+      "group": "Containers",
+      "summary": "One question in the FAQ list."
+    },
+    {
+      "name": "Highlight",
+      "group": "Type",
+      "summary": "A hand-marked lime swipe behind the key phrase of the one headline per page (\"getting somewhere.\")."
+    },
+    {
+      "name": "IconButton",
+      "group": "Actions",
+      "summary": "A 40px square button that holds one icon: GitHub, the theme switch."
+    },
+    {
+      "name": "Tag",
+      "group": "Labels",
+      "summary": "A small outlined pill that carries one fact about the project, such as \"Open source | Free to make something\"."
+    },
+    {
+      "name": "TerminalPanel",
+      "group": "Panels",
+      "summary": "The dark panel used for anything you run: the generated file list, the install steps, the zip contents."
+    }
+  ],
+  "assetGroups": []
+}

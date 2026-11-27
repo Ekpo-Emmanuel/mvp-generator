@@ -1,0 +1,58 @@
+<!-- @dsCard group="Actions" height=100 subtitle="GitHub, theme" -->
+<!doctype html><meta charset="utf-8" /><link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap"
+/>
+<style>
+  body {
+    margin: 0;
+    padding: 28px;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .row {
+    display: flex;
+    gap: 4px;
+  }
+  .ib {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s;
+  }
+  .ib:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .ib svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+<div class="row">
+  <button class="ib" aria-label="Switch to dark theme">
+    <svg viewBox="0 0 24 24">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg></button
+  ><button class="ib" aria-label="Switch to light theme">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4" />
+      <path
+        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+      />
+    </svg>
+  </button>
+</div>

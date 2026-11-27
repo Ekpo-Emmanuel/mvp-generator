@@ -23,6 +23,7 @@
 
 # misc
 .DS_Store
+.landing-review.png
 *.pem
 
 # debug

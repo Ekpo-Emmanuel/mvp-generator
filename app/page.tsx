@@ -1,17 +1,12 @@
-"use client";
+import type { Metadata } from "next";
+import LandingView from "@/components/landing/landing-view";
 
-import Header from "@/components/v2/header";
-import StepsWrapper from "@/components/v2/steps-wrapper";
+const description = "mvp builds a starter project with your framework, auth, database and styling already connected. Open source, no account.";
 
-export default function Home() {
-  return (
-    <section className="bg-background relative">
-      <Header />
-      <div className="text-foreground">
-        <div className="max-w-4xl mx-auto h-full p-4 lg:p-0 flex items-center justify-center">
-          <StepsWrapper />
-        </div>
-      </div>
-    </section>
-  );
-}
+export const metadata: Metadata = {
+  title: "mvp — redesigned landing page",
+  description,
+  openGraph: { title: "mvp — redesigned landing page", description, type: "website" },
+};
+
+export default function Home() { return <LandingView/>; }

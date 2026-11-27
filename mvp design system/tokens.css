@@ -1,0 +1,120 @@
+/* mvp design system — generated from tokens.json */
+:root, [data-theme="light"] {
+  --bg: #ffffff; /* Page background. White in light; a green-black in dark. */
+  --panel: #ffffff; /* Cards and sheets that sit on the page. */
+  --wash: #f7f8f1; /* Faint tint for small wells such as stack tiles. */
+  --sunk: #eff2e3; /* Illustration zones inside cards; white chips lift off it. */
+  --ink: #12140d; /* Text on bg and panel. Flips to light in dark mode. */
+  --ink-2: #3a3d30; /* Secondary text and nav links. */
+  --mute: #5e6256; /* Captions and fine print. Passes 4.5:1 on bg in both themes. */
+  --line: #e2e5d3; /* Hairlines and dividers, tinted to the page hue. */
+  --line-2: #c9ceb5; /* Borders on controls and cards. */
+  --accent: #e3f23f; /* Lime. A fill only, for what you act on or what is ready. Never used as text on bg. */
+  --accent-soft: #f5facb; /* Soft lime wash for hover and ready states. */
+  --on-accent: #12140d; /* Text on accent. Stays dark in both themes. */
+  --term: #12140d; /* Terminal and code panels. Dark means something you run. */
+  --action: #12140d; /* Fill of the primary neutral button. Inverts in dark. */
+  --on-action: #ffffff; /* Text on action. */
+  --shadow-float: 0 40px 70px -44px rgba(24,28,10,0.34); /* The hero card only. Buttons carry no outer shadow. */
+}
+[data-theme="dark"] {
+  --bg: #0d0f09;
+  --panel: #14170e;
+  --wash: #1a1d13;
+  --sunk: #1a1d13;
+  --ink: #ecefdd;
+  --ink-2: #c4c8b1;
+  --mute: #9aa085;
+  --line: #262a1c;
+  --line-2: #373c29;
+  --accent: #e3f23f;
+  --accent-soft: #2b330c;
+  --on-accent: #12140d;
+  --term: #050603;
+  --action: #ecefdd;
+  --on-action: #12140d;
+  --shadow-float: 0 40px 70px -44px rgba(0,0,0,0.85);
+}
+:root {
+  --space-1: 4px; /* Tight gaps inside controls. */
+  --space-2: 8px; /* Gap between small items; tile grids. */
+  --space-3: 12px; /* Card inner padding on phones. */
+  --space-4: 16px; /* Default gap. */
+  --space-6: 24px; /* Gap between groups. */
+  --space-7: 28px; /* Page gutter on desktop (18px on phones). */
+  --space-10: 40px; /* Gap between blocks in a section. */
+  --space-16: 64px; /* Section padding on phones. */
+  --space-24: 96px; /* Section padding on desktop. */
+  --radius-sm: 6px; /* Chips, small inline tags. */
+  --radius-md: 8px; /* Buttons. */
+  --radius-lg: 14px; /* Cards. */
+  --radius-xl: 18px; /* The hero demo card. */
+  --radius-pill: 999px; /* Pill tags. */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --text-hero: 600 4.75rem/1 var(--font-display); /* One per page. Scales down to 3.25rem on phones. */
+  --text-heading: 600 3.75rem/1.04 var(--font-display); /* Section headings. 2.5rem on phones. */
+  --text-card-title: 600 1.44rem/1.2 var(--font-display); /* Card and component titles. */
+  --text-lede: 400 1.25rem/1.55 var(--font-sans); /* Intro paragraph under a headline. */
+  --text-body: 400 1.03rem/1.6 var(--font-sans); /* Running text. */
+  --text-ui: 600 0.94rem/1.4 var(--font-sans); /* Buttons, nav, labels. */
+  --text-small: 500 0.85rem/1.4 var(--font-sans); /* Fine print, captions, tags. */
+  --text-code: 400 0.81rem/1.75 var(--font-mono); /* Filenames, commands and terminal output only. */
+}
+.hero {
+  font-family: var(--font-display);
+  font-size: 4.75rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: 3.75rem;
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.44rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lede {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 1.03rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.ui {
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.small {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.code {
+  font-family: var(--font-mono);
+  font-size: 0.81rem;
+  line-height: 1.75;
+  font-weight: 400;
+  letter-spacing: 0;
+}
